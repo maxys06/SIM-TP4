@@ -1,0 +1,24 @@
+datos = {
+    x: number,
+    numeroIteraciones: number,
+    minutoDesde: number,
+    cambioPlaca: {
+        probabilidad: number,
+        tiempo: number
+    },
+    ampliacionMemoria: {
+        probabilidad: number,
+        tiempo: number
+    },
+    formateoDisco: {
+        probabilidad: number,
+        tiempo: number
+    },
+    agregarCdoDvd: {
+        probabilidad: number,
+        tiempo: number
+    },
+    desviacionTiempo: number,
+    tiempoTrabajoInicialFormateo: number,
+    tiempoTrabajoFinalFormateo: number
+}
