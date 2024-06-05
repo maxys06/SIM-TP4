@@ -37,5 +37,5 @@ console.log(trabajo);
 let tiempo = trabajo.obtenerTiempo(rnd);
 console.log(tiempo);*/
 
-let gestor = new GestorSimulacion(1, 1, 1, 5, {tiempo: 4, probabilidad: 0.25}, {tiempo: 4, probabilidad: 0.25}, {tiempo: 4, probabilidad: 0.25}, {tiempo: 4, probabilidad: 0.25}, 15, 15);
+let gestor = new GestorSimulacion(1, 1, 1, 10, {tiempo: 60, probabilidad: 0.25}, {tiempo: 80, probabilidad: 0.25}, {tiempo: 100, probabilidad: 0.25}, {tiempo: 120, probabilidad: 0.25}, 15, 15);
 gestor.test();

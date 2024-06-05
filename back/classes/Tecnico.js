@@ -10,9 +10,10 @@ export class Tecnico {
 
         this.colaComputadorasPorArreglar = [];
         this.colaComputadorasFormateadas = [];
+        this.computadorasEnFormateo = [];
         this.tiempoOcupacionTecnico = 0;
         this.acumTiempoOcupacionTecnico = 0;
-        this.proporcionPorcentajeTecnico = 0; //LO GUARDAMOS COMO FRACCION (0.56) y en el front lo pasamos a porcentaje.
+        this.proporcionOcupacionTecnico = 0; //LO GUARDAMOS COMO FRACCION (0.56) y en el front lo pasamos a porcentaje.
 
         this.tablaTrabajos = tablaTrabajos;
         this.tiempoTrabajoInicialFormateo = tiempoTrabajoInicialFormateo;
@@ -25,13 +26,62 @@ export class Tecnico {
     }
 
 
-    libre() {
-        return this.estado = 'Libre';
+    liberar() {
+        this.estado = 'Libre';
+    }
+
+    estaLibre() {
+        return this.estado == 'Libre';
     }
 
     agregarACola(computadora) {
         this.colaComputadorasPorArreglar.push(computadora);
     }
+
+    agregarAColaFormateada(computadora) {
+        computadora.formateadoEnEspera();
+        this.colaComputadorasFormateadas.push(computadora);
+    }
+
+    /** 
+     * TODO: Determinar bien como calculamos la estadistica de acumulacion del tecnico...
+     * Este metodo deberia destruir el objeto, y actualizar el contexto de simulacion el cambio en las
+     * estadisticas.
+     * **/
+    finalizarArreglo(minutoActual) {
+        
+        this.contextoSimulacion.acumularPermanencia(this.computadoraActual.tiempoLlegada);
+
+        //Si este atributo fue seteado, significa que esta computadora fue formateada, y que ahora se encuentra en la ultima etapa.
+        //El tiempo de ocupacion va a ser el tiempo que se demore en temrinar la ultima etapa.
+        if(this.computadoraActual.tiempoFinEspera) {
+            this.tiempoOcupacionTecnico = this.tiempoTrabajoFinalFormateo;
+        }
+        else {
+            this.tiempoOcupacionTecnico = this.computadoraActual.tiempoFinArreglo - this.computadoraActual.tiempoLlegada;
+        }
+        this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
+        this.proporcionOcupacionTecnico = this.acumTiempoOcupacionTecnico / minutoActual;
+
+        this.contextoSimulacion.eliminarComputadora(this.computadoraActual);
+        this.computadoraActual = null;
+        
+
+    }
+
+    terminarEtapa1(minutoActual) {
+
+        this.computadoraActual.siendoFormateada(minutoActual);
+        this.tiempoOcupacionTecnico = this.tiempoTrabajoInicialFormateo;
+
+        this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
+        this.proporcionOcupacionTecnico = this.tiempoOcupacionTecnico / minutoActual;
+
+        //No se pierde la referencia, ya que tenemos el evento creado de "Fin espera de Formateo".
+        //Tengamos en cuenta: en que momento se crea ese evento? Cuando termina la etapa? o cuando se va a formatear la pc?
+        this.computadoraActual = null;
+    }
+
 
     comenzarTrabajo(minutoActual, computadora) {
         this.estado = 'Ocupado';
@@ -39,17 +89,18 @@ export class Tecnico {
         this.trabajoRequerido = this.tablaTrabajos.valorRandom(this.rndTrabajo);
         this.computadoraActual = computadora;
 
-        if (this.trabajoRequerido.descripcion = 'C: Formateo Disco') {
+        if (this.trabajoRequerido.descripcion === 'C: Formateo Disco') {
             let rndTiempoTotalFormateo = Math.random();
             let tiempoTotalFormateo = this.trabajoRequerido.obtenerTiempo(rndTiempoTotalFormateo);
 
+            let tiempoFinEtapa1 = minutoActual + this.tiempoTrabajoInicialFormateo; 
             computadora.siendoArreglada();
                 
             // El minuto en el cual la computadora va a dejar de estar en espera por el formateo.
             let tiempoFinEsperaFormateo = minutoActual + tiempoTotalFormateo - this.tiempoTrabajoFinalFormateo;
             computadora.setTiempoFinEsperaFormateo(tiempoFinEsperaFormateo);
 
-            let tiempoFinEtapa1 = minutoActual + this.tiempoTrabajoInicialFormateo; 
+            
             
             //En este metodo, rellenamos de los datos relacionados al evento de formateo. 
             //Para mantener consistencia, aqui es donde se van a mostrar el rnd utilizado y
@@ -66,10 +117,48 @@ export class Tecnico {
         else {
             let rndTiempoTrabajo = Math.random();
             let tiempoTrabajo = this.trabajoRequerido.obtenerTiempo(rndTiempoTrabajo);
+            computadora.siendoArreglada(minutoActual + tiempoTrabajo);
 
             //Actualizamos el evento de fin de arreglo.
             this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, rndTiempoTrabajo, tiempoTrabajo);
         }
+    }
+
+    iniciarEtapaFinal(minutoActual, computadoraFormateada) {
+
+        this.estado = 'Ocupado';
+        this.computadoraActual = computadoraFormateada;
+        this.computadoraActual.siendoArreglada(minutoActual + this.tiempoTrabajoFinalFormateo);
+        //mandamos el minuto actual, el tiempo que tarda, y el nulo hace referencia a un RND,
+        // pero en este caso, no se utiliza ningun numero aleatorio.
+        this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, null, this.tiempoTrabajoFinalFormateo)
+
+    }
+
+    tieneEspacio() {
+        return this.colaComputadorasPorArreglar.length <= 9;
+    }
+
+    hayCola() {
+        return this.colaComputadorasPorArreglar.length > 0;
+    }
+
+    hayColaFormateados() {
+        return this.colaComputadorasFormateadas.length > 0;
+    }
+
+    sacarDeColaFormateada() {
+        return this.colaComputadorasFormateadas.shift()
+    }
+
+    sacarDeColaPorArreglar() {
+        return this.colaComputadorasPorArreglar.shift()
+    }
+
+    limpiar() {
+        this.rndTrabajo = null;
+        this.trabajoRequerido = null;
+        this.tiempoOcupacionTecnico = null;
     }
 
 }
