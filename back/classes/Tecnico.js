@@ -28,6 +28,7 @@ export class Tecnico {
 
     liberar() {
         this.estado = 'Libre';
+        this.trabajandoEn = null;
     }
 
     estaLibre() {
@@ -72,6 +73,11 @@ export class Tecnico {
     terminarEtapa1(minutoActual) {
 
         this.computadoraActual.siendoFormateada(minutoActual);
+
+
+        //Instanciamos un nuevo evento en la simulacion, el cual vamos a poder usar para actualizar el estado de la computadora.
+        this.contextoSimulacion.agregarEventoFinEsperaFormateo(this.computadoraActual);
+        
         this.tiempoOcupacionTecnico = this.tiempoTrabajoInicialFormateo;
 
         this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
@@ -87,9 +93,13 @@ export class Tecnico {
         this.estado = 'Ocupado';
         this.rndTrabajo = Math.random();
         this.trabajoRequerido = this.tablaTrabajos.valorRandom(this.rndTrabajo);
+        
         this.computadoraActual = computadora;
 
         if (this.trabajoRequerido.descripcion === 'C: Formateo Disco') {
+
+            this.trabajandoEn = `${this.computadoraActual.idComputadora} | C: Formateando disco Etapa 1`
+
             let rndTiempoTotalFormateo = Math.random();
             let tiempoTotalFormateo = this.trabajoRequerido.obtenerTiempo(rndTiempoTotalFormateo);
 
@@ -108,13 +118,11 @@ export class Tecnico {
             this.contextoSimulacion.actualizarEventoFormateo(rndTiempoTotalFormateo, tiempoTotalFormateo, tiempoFinEtapa1);
 
 
-            //Instanciamos un nuevo evento en la simulacion, el cual vamos a poder usar para actualizar el estado de la computadora.
-            this.contextoSimulacion.agregarEventoFinEsperaFormateo(tiempoFinEsperaFormateo, computadora);
-
 
 
         }
         else {
+            this.trabajandoEn = `${this.computadoraActual.idComputadora} | ${this.trabajoRequerido.obtenerDescripcion()}`;
             let rndTiempoTrabajo = Math.random();
             let tiempoTrabajo = this.trabajoRequerido.obtenerTiempo(rndTiempoTrabajo);
             computadora.siendoArreglada(minutoActual + tiempoTrabajo);
@@ -128,6 +136,7 @@ export class Tecnico {
 
         this.estado = 'Ocupado';
         this.computadoraActual = computadoraFormateada;
+        this.trabajandoEn = `${this.computadoraActual.idComputadora} | C: Etapa final`
         this.computadoraActual.siendoArreglada(minutoActual + this.tiempoTrabajoFinalFormateo);
         //mandamos el minuto actual, el tiempo que tarda, y el nulo hace referencia a un RND,
         // pero en este caso, no se utiliza ningun numero aleatorio.

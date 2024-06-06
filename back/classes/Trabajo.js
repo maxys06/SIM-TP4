@@ -13,4 +13,7 @@ export class Trabajo{
     obtenerTiempo(rnd) {
         return generadorUniforme.generarDistribucionUniforme(this.tiempo - this.desviacion, this.tiempo + this.desviacion, rnd);
     }
+    obtenerDescripcion() {
+        return this.descripcion
+    }
 }

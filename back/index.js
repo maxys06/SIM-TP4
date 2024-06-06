@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 // Endpoints
-app.post('/montecarloBicicleteria', async (req, res) => {
+app.post('/reparacionComputadoras', async (req, res) => {
   try{
     
     res.json(null);

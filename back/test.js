@@ -1,4 +1,3 @@
-import { json } from "d3";
 import { TablaProbabilidad } from "./classes/TablaProbabilidad.js";
 import { GestorSimulacion } from "./classes/GestorSimulacion.js";
 

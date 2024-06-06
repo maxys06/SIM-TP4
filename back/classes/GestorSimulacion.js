@@ -132,6 +132,11 @@ export class GestorSimulacion {
             tiempoOcurrencia: this.eventoFinEtapa1.tiempoOcurrencia
         };
 
+        linea.arrayEventoFinEtapa2 = this.arrayEventoFinEtapa2.map(e => {return {
+            tiempo: e.getTiempoOcurrencia(),
+            computadora: e.computadora.idComputadora
+        }})
+
         linea.trabajo =  {
             rnd: this.tecnico.rndTrabajo,
             trabajoRequerido: this.tecnico.trabajoRequerido?.descripcion
@@ -154,7 +159,7 @@ export class GestorSimulacion {
         
 
         linea.computadoras = this.computadoras.map(c => {return {
-            id: c.id, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoFinArreglo: c.tiempoFinArreglo}})
+            id: c.idComputadora, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoFinArreglo: c.tiempoFinArreglo}})
         
         return linea;
         
@@ -172,8 +177,8 @@ export class GestorSimulacion {
         this.eventoFinArreglo.actualizar(minutoActual, rnd, tiempoTrabajo);
     }
 
-    agregarEventoFinEsperaFormateo(tiempoFinEsperaFormateo, computadora) {
-        this.arrayEventoFinEtapa2.push(new EventoFinEtapa2(computadora, tiempoFinEsperaFormateo, this.tecnico, this));
+    agregarEventoFinEsperaFormateo(computadora) {
+        this.arrayEventoFinEtapa2.push(new EventoFinEtapa2(computadora, computadora.tiempoFinEspera, this.tecnico, this));
     }
 
     actualizarEventoFormateo(rndTiempoTotalFormateo, tiempoTotalFormateo, tiempoFinEtapa1) {

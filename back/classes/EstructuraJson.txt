@@ -18,7 +18,7 @@ datos = {
         probabilidad: number,
         tiempo: number
     },
-    desviacionTiempo: number,
+    desviacion: number,
     tiempoTrabajoInicialFormateo: number,
     tiempoTrabajoFinalFormateo: number
 }
