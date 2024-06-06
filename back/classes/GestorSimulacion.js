@@ -129,7 +129,7 @@ export class GestorSimulacion {
         linea.eventoFinEtapa1 = {
             rnd: this.eventoFinEtapa1.rnd,
             tiempo: this.eventoFinEtapa1.tiempo,
-            tiempoOcurrencia: this.eventoFinEtapa1.tiempoOcurrencia
+            finEtapa1: this.eventoFinEtapa1.tiempoOcurrencia
         };
 
         linea.arrayEventoFinEtapa2 = this.arrayEventoFinEtapa2.map(e => {return {

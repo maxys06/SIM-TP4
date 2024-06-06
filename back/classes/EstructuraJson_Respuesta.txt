@@ -1,0 +1,53 @@
+[
+
+    reloj: number,
+    evento: string,
+    eventoLlegadaComputadora: {
+        rnd: number?,
+        tiempo: number?,
+        proxLlegada: number
+    },
+    eventoFinArreglo: {
+        rnd: number?,
+        tiempo: number?,
+        finArreglo: number?
+    },
+    eventoFinEtapa1: {
+        rnd: number?,
+        tiempo: number?,
+        finEtapa1: number?
+    },
+    arrayEventoFinEtapa2: [{
+            tiempo: number,
+            computadora: number}],
+
+    trabajo: {
+        rnd: number?,
+        trabajoRequerido: string?,
+    },
+    tecnico: {
+        estado: string,
+        trabajandoEn: string,
+        colaComputadorasPorArreglar: number,
+        colaComputadorasFormateadas: number,
+        tiempoOcupacionTecnico: number?,
+        acumTiempoOcupacionTecnico: number,
+        proporcionOcupacionTecnico: number,
+    },
+    contadorComputadorasArregladas: number,
+    tiempoPermanenciaPc: number?,
+    acumTiempoPermanencia: number,
+    acumTiempoPermanenciaPromedio: number,
+    computadoras: [{
+        idComputadora: number,
+        estado: string,
+        tiempoLlegada: string,
+        tiempoFinEspera: number?,
+        tiempoFinArreglo: number?
+    }]
+
+
+
+    
+
+]
