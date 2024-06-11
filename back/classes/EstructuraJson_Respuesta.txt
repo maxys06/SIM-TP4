@@ -1,5 +1,4 @@
 [
-
     reloj: number,
     evento: string,
     eventoLlegadaComputadora: {
@@ -45,9 +44,4 @@
         tiempoFinEspera: number?,
         tiempoFinArreglo: number?
     }]
-
-
-
-    
-
 ]

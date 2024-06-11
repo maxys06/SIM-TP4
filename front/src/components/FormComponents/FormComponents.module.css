@@ -1,13 +1,14 @@
-fieldset {
+.fieldset {
   display: flex;
   flex-direction: column;
-  border: 0;
-  padding: 1ch;
+  border: 1;
+  padding: 100ch;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .fieldsetHeader {
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-bottom: 2px solid gray;
   padding: 2px;
   margin-bottom: 1ch;
@@ -22,6 +23,9 @@ fieldset {
 
 .labelInput, .labelSelect {
   display: flex;
+  justify-content: center; /* Centra los elementos dentro del label */
+  align-items: center;
+  width: 100%;
 }
 
 .labelInput label, .labelSelect label {

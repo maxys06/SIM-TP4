@@ -12,7 +12,6 @@
   background-color: rgb(253, 253, 253);
   border: 1px solid rgb(199, 199, 199);
   width: 100%;
-
 }
 
 .inputsContainer {
@@ -93,3 +92,30 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.fieldsetProbabilidades {
+  display: flex;
+  flex-direction: column;
+  padding: 1ch;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1ch;
+}
+
+.fieldsetProbabilidades .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1ch;
+  margin-bottom: 1ch;
+}
+
+.fieldsetProbabilidades .column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldsetProbabilidades .column > div {
+  margin-bottom: 1ch;
+}
+

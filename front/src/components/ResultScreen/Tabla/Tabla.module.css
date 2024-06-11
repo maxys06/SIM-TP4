@@ -40,14 +40,21 @@
   .table td:first-child, .headerSticky{
     position: sticky;
     left: 0;
-    border: 1px solid rgb(138, 135, 135) !important
+    border: 1px solid rgb(138, 135, 135) !important;
+    z-index: 1;
   }
+
+
 
   .stickyTopHeader {
     position: sticky;
     top: 0;
     z-index: 1;
   }
+
+
+
+
 
   .sticky th {
     border: 1px solid gray;

@@ -6,11 +6,11 @@ import { simularLaboratorio } from '../../services/laboratorioService';
 import { ResultScreen } from '../ResultScreen/ResultScreen';
 
 export function Menu() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
-      tiempoX: 0,
-      cantidadIteraciones: 0,
-      minutoDesde: 0,
+      tiempoX: 1,
+      cantidadIteraciones: 5,
+      minutoDesde: 5,
       cambioPlaca: {
           probabilidad: 0,
           tiempo: 0
@@ -30,7 +30,7 @@ export function Menu() {
       desviacion: 0,
       tiempoTrabajoInicialFormateo: 0,
       tiempoTrabajoFinalFormateo: 0
-  },
+    },
     mode: 'onSubmit',
   });
 
@@ -41,9 +41,9 @@ export function Menu() {
     setResults(result);
   }
 
-  let tiempoX = watch('tiempoX')
-  let cantidadIteraciones = watch('cantidadIteraciones')
-  let minutoDesde = watch('minutoDesde')
+  let tiempoX = watch('tiempoX');
+  let cantidadIteraciones = watch('cantidadIteraciones');
+  let minutoDesde = watch('minutoDesde');
 
   let tablaCambioPlaca = watch('cambioPlaca');
   let tablaampliacionMemoria = watch('ampliacionMemoria');
@@ -51,8 +51,8 @@ export function Menu() {
 
   return (
     <section className={styles.menuContainer}>
-      <form onSubmit={handleSubmit(onSubmit)}className={styles.inputMenu}>
-        <div className={styles.inputMenu}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.inputMenu}>
+        <div className={styles.inputsContainer}>
             <Fieldset header='Parametros De Simulacion'>
                   <Input 
                     attributeName='tiempoX' 
@@ -61,133 +61,155 @@ export function Menu() {
                     validations={{ required: "Este campo es obligatorio" }}
                     type='number'
                     error={errors.tiempoX}
-                    step={0.0001}
+                    step={0.1}
                   />
                   <Input 
                     attributeName='cantidadIteraciones' 
                     label='Cantidad Iteraciones: ' 
                     register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
+                    validations={{required: {value: true, message: "Se deben ingresar la cantidad de simulaciones a realizar"}, 
+                    min: {value: 1, message: "Se debe realziar al menos una simulacion"},
+                    max: {value: 100000, message: "No se pueden generar mas de 100000 simulaciones"}
+                    }}
                     type='number'
                     error={errors.cantidadIteraciones}
-                    step={0.0001}
+                    step={0.1}
                   />
                   <Input 
                     attributeName='minutoDesde' 
                     label='Minuto desde cual mostrar: ' 
                     register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
+                    validations={{required: {value: true, message: "Se deben ingresar la primera simulacion a visualizar"}, 
+                                min: {value: 1, message: "Se debe visualizar al menos una simulacion"},
+                                max: {value: Number(minutoDesde), message: `No debe se puede visualizar mas de ${Number(minutoDesde)} simulaciones`}
+                                }}
                     type='number'
-                    error={errors.capacidadLaboratorio}
-                    step={0.0001}
-                  />
-            </Fieldset>
-            <Fieldset header='Configuración del Laboratorio'>
-                  <Input 
-                    attributeName='tiempoLlegadaMin' 
-                    label='Tiempo de llegada mínimo (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoLlegadaMin}
-                    step={0.0001}
-                  />
-                  <Input 
-                    attributeName='tiempoLlegadaMax' 
-                    label='Tiempo de llegada máximo (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoLlegadaMax}
-                    step={0.0001}
-                  />
-                  <Input 
-                    attributeName='capacidadLaboratorio' 
-                    label='Capacidad del laboratorio: ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.capacidadLaboratorio}
-                    step={0.0001}
-                  />
-            </Fieldset>
-            <Fieldset header='Probabilidades y Tiempos'>
-                  <Input 
-                    attributeName='probCambioPlaca' 
-                    label='Probabilidad de cambio de placa: ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    step={0.0001}
-                    error={errors.probCambioPlaca}
-                  />
-                  <Input 
-                    attributeName='probAmpliacionMemoria' 
-                    label='Probabilidad de ampliación de memoria: ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    step={0.0001}
-                    error={errors.probAmpliacionMemoria}
-                    
-                  />
-                  <Input 
-                    attributeName='probFormateoDisco' 
-                    label='Probabilidad de formateo de disco: ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    step={0.0001}
-                    error={errors.probFormateoDisco}
-                    
-                  />
-                  <Input 
-                    attributeName='probAgregarCDDVD' 
-                    label='Probabilidad de agregar CD/DVD: ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    step={0.0001}
-                    error={errors.probAgregarCDDVD}
-                    
-                  />
-                  <Input 
-                    attributeName='tiempoCambioPlaca' 
-                    label='Tiempo para cambio de placa (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoCambioPlaca}
-                    step={0.1}
-                  />
-                  <Input 
-                    attributeName='tiempoAmpliacionMemoria' 
-                    label='Tiempo para ampliación de memoria (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoAmpliacionMemoria}
-                    step={0.1}
-                  />
-                  <Input 
-                    attributeName='tiempoFormateoDisco' 
-                    label='Tiempo para formateo de disco (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoFormateoDisco}
-                    step={0.1}
-                  />
-                  <Input 
-                    attributeName='tiempoAgregarCDDVD' 
-                    label='Tiempo para agregar CD/DVD (minutos): ' 
-                    register={register}
-                    validations={{ required: "Este campo es obligatorio" }}
-                    type='number'
-                    error={errors.tiempoAgregarCDDVD}
+                    error={errors.minutoDesde}
                     step={0.1}
                   />
             </Fieldset>
+            <Fieldset header='Configuración de la Simulacion'>
+                  <Input 
+                    attributeName='desviacion' 
+                    label='Desviacion (minutos): ' 
+                    register={register}
+                    validations={{ required: "Este campo es obligatorio" }}
+                    type='number'
+                    error={errors.desviacion}
+                    step={0.1}
+                  />
+                  <Input 
+                    attributeName='tiempoTrabajoInicialFormateo' 
+                    label='Tiempo de Trabajo inicial de Formateo (minutos): ' 
+                    register={register}
+                    validations={{ required: "Este campo es obligatorio" }}
+                    type='number'
+                    error={errors.tiempoTrabajoInicialFormateo}
+                    step={0.1}
+                  />
+                  <Input 
+                    attributeName='tiempoTrabajoFinalFormateo' 
+                    label='Tiempo De trabajo Final de Formateo: ' 
+                    register={register}
+                    validations={{ required: "Este campo es obligatorio" }}
+                    type='number'
+                    error={errors.tiempoTrabajoFinalFormateo}
+                    step={1}
+                  />
+            </Fieldset>
+            
+              <div className={styles.row}>
+                <div className={styles.column}>
+                  <Fieldset header='Cambio de Placa'>
+                    <Input 
+                      attributeName='cambioPlaca.probabilidad' 
+                      label='Probabilidad: ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.01}
+                      error={errors.cambioPlaca?.probabilidad}
+                    />
+                    <Input 
+                      attributeName='cambioPlaca.tiempo' 
+                      label='Tiempo (minutos): ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.1}
+                      error={errors.cambioPlaca?.tiempo}
+                    />
+                  </Fieldset>
+                </div>
+                <div className={styles.column}>
+                  <Fieldset header='Ampliación de Memoria'>
+                    <Input 
+                      attributeName='ampliacionMemoria.probabilidad' 
+                      label='Probabilidad: ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.01}
+                      error={errors.ampliacionMemoria?.probabilidad}
+                    />
+                    <Input 
+                      attributeName='ampliacionMemoria.tiempo' 
+                      label='Tiempo (minutos): ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.1}
+                      error={errors.ampliacionMemoria?.tiempo}
+                    />
+                  </Fieldset>
+                </div>
+              </div>
+              <div className={styles.row}>
+                <div className={styles.column}>
+                  <Fieldset header='Formateo de Disco'>
+                    <Input 
+                      attributeName='formateoDisco.probabilidad' 
+                      label='Probabilidad: ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.01}
+                      error={errors.formateoDisco?.probabilidad}
+                    />
+                    <Input 
+                      attributeName='formateoDisco.tiempo' 
+                      label='Tiempo (minutos): ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.1}
+                      error={errors.formateoDisco?.tiempo}
+                    />
+                  </Fieldset>
+                </div>
+                <div className={styles.column}>
+                  <Fieldset header='Agregar CD/DVD'>
+                    <Input 
+                      attributeName='agregarCdoDvd.probabilidad' 
+                      label='Probabilidad: ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.01}
+                      error={errors.agregarCdoDvd?.probabilidad}
+                    />
+                    <Input 
+                      attributeName='agregarCdoDvd.tiempo' 
+                      label='Tiempo (minutos): ' 
+                      register={register}
+                      validations={{ required: "Este campo es obligatorio" }}
+                      type='number'
+                      step={0.1}
+                      error={errors.agregarCdoDvd?.tiempo}
+                    />
+                  </Fieldset>
+                </div>
+              </div>
         </div>
         <button className={styles.submitButton} type='submit' disabled={isSubmitting}>
           Realizar Simulación

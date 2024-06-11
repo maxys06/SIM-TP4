@@ -23,7 +23,7 @@ export function Input({label, type, attributeName, register, validations, error,
                type={type} {...register(attributeName, {...validations})} />
       </div>
       {error && (
-        <div className={styles.error}>{error.message}</div>
+        <div className={styles.inputError}>{error.message}</div>
       )}
     </>
   );
