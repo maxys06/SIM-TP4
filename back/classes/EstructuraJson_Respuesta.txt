@@ -42,6 +42,6 @@
         estado: string,
         tiempoLlegada: string,
         tiempoFinEspera: number?,
-        tiempoFinArreglo: number?
+        tiempoInicioArreglo: number?
     }]
 ]

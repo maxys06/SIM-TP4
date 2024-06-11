@@ -159,7 +159,7 @@ export class GestorSimulacion {
         
 
         linea.computadoras = this.computadoras.map(c => {return {
-            id: c.idComputadora, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoFinArreglo: c.tiempoFinArreglo}})
+            id: c.idComputadora, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoInicioArreglo: c.tiempoInicioArreglo}})
         
         return linea;
         

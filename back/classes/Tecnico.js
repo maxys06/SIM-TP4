@@ -59,7 +59,7 @@ export class Tecnico {
             this.tiempoOcupacionTecnico = this.tiempoTrabajoFinalFormateo;
         }
         else {
-            this.tiempoOcupacionTecnico = this.computadoraActual.tiempoFinArreglo - this.computadoraActual.tiempoLlegada;
+            this.tiempoOcupacionTecnico = minutoActual - this.computadoraActual.tiempoInicioArreglo;
         }
         this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
         this.proporcionOcupacionTecnico = this.acumTiempoOcupacionTecnico / minutoActual;
@@ -125,7 +125,7 @@ export class Tecnico {
             this.trabajandoEn = `${this.computadoraActual.idComputadora} | ${this.trabajoRequerido.obtenerDescripcion()}`;
             let rndTiempoTrabajo = Math.random();
             let tiempoTrabajo = this.trabajoRequerido.obtenerTiempo(rndTiempoTrabajo);
-            computadora.siendoArreglada(minutoActual + tiempoTrabajo);
+            computadora.siendoArreglada(minutoActual);
 
             //Actualizamos el evento de fin de arreglo.
             this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, rndTiempoTrabajo, tiempoTrabajo);

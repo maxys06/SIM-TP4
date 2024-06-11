@@ -9,7 +9,7 @@ export class Computadora {
         this.tiempoLlegada = tiempoLlegada;
         this.estado = estado; // En espera, Siendo Arreglada, Arreglada, Rechazada, Formateado en curso, Formateo esperando tecnico. 
         this.tiempoFinEspera = null;
-        this.tiempoFinArreglo = null;
+        this.tiempoInicioArreglo = null;
 
     }
 
@@ -17,9 +17,9 @@ export class Computadora {
      *
      *  
      */
-    siendoArreglada(tiempoFinArreglo=null) {
+    siendoArreglada(minutoActual=null) {
         this.estado = 'Siendo Arreglada';
-        this.tiempoFinArreglo = tiempoFinArreglo;
+        this.tiempoInicioArreglo = minutoActual;
     }
 
     setTiempoFinEsperaFormateo(tiempoFinEsperaFormateo) {
