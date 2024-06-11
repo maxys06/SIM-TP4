@@ -81,7 +81,7 @@ export class Tecnico {
         this.tiempoOcupacionTecnico = this.tiempoTrabajoInicialFormateo;
 
         this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
-        this.proporcionOcupacionTecnico = this.tiempoOcupacionTecnico / minutoActual;
+        this.proporcionOcupacionTecnico = this.acumTiempoOcupacionTecnico / minutoActual;
 
         //No se pierde la referencia, ya que tenemos el evento creado de "Fin espera de Formateo".
         //Tengamos en cuenta: en que momento se crea ese evento? Cuando termina la etapa? o cuando se va a formatear la pc?
