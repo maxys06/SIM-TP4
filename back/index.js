@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
 // Endpoints
 app.post('/reparacionComputadoras', async (req, res) => {
   try{
-    
     res.json(null);
     
   } catch (error) {

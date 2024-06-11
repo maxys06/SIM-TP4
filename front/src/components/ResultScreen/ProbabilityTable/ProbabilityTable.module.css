@@ -1,0 +1,36 @@
+ 
+  .table {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(216, 216, 216);
+  }
+
+  
+  .table th, .table td {
+    width: 10rem;
+  }
+  
+  .table th {
+    background-color: rgb(238, 238, 252);
+    border: 1px solid rgb(216, 216, 216);
+    padding: .3ch;
+  }
+  
+  .table td {
+    border-right: solid rgb(216, 216, 216) 1px;
+    border-bottom: solid rgb(216, 216, 216) 1px;
+    padding: .5ch;
+  }
+  
+  .table caption {
+    font-size: 1.2rem;
+    padding: 1ch;
+    margin-bottom: .2ch;
+    text-align: center;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+  }
+  
+  .table tr:nth-child(2n) td {
+    background-color: rgb(237, 248, 246);
+  }
