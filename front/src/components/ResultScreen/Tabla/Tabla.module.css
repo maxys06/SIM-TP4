@@ -17,7 +17,7 @@
   border: 2px solid rgb(0, 0, 0);
 
   padding: .1ch;
-  font-size: 1.4ch;
+  font-size: 1.7ch;
   position: sticky;
   top: 0;
   z-index: 3; /* Ensure table headers stay on top */
