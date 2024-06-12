@@ -26,6 +26,7 @@
     },
     tecnico: {
         estado: string,
+        idComputadora: number
         trabajandoEn: string,
         colaComputadorasPorArreglar: number,
         colaComputadorasFormateadas: number,

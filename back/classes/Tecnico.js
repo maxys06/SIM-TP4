@@ -5,7 +5,10 @@ export class Tecnico {
     constructor(tablaTrabajos, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, contextoSimulacion) {
 
         this.estado = 'Libre';
+
         this.trabajandoEn = null; //Descripcion
+        this.idComputadoraActual = null;
+
         this.computadoraActual = null;
 
         this.colaComputadorasPorArreglar = [];
@@ -29,6 +32,7 @@ export class Tecnico {
     liberar() {
         this.estado = 'Libre';
         this.trabajandoEn = null;
+        this.idComputadoraActual = NULL;
     }
 
     estaLibre() {
@@ -98,7 +102,7 @@ export class Tecnico {
 
         if (this.trabajoRequerido.descripcion === 'C: Formateo Disco') {
 
-            this.trabajandoEn = `${this.computadoraActual.idComputadora} | C: Formateando disco Etapa 1`
+            this.setTrabajandoEn();
 
             let rndTiempoTotalFormateo = Math.random();
             let tiempoTotalFormateo = this.trabajoRequerido.obtenerTiempo(rndTiempoTotalFormateo);
@@ -122,7 +126,7 @@ export class Tecnico {
 
         }
         else {
-            this.trabajandoEn = `${this.computadoraActual.idComputadora} | ${this.trabajoRequerido.obtenerDescripcion()}`;
+            this.setTrabajandoEn();
             let rndTiempoTrabajo = Math.random();
             let tiempoTrabajo = this.trabajoRequerido.obtenerTiempo(rndTiempoTrabajo);
             computadora.siendoArreglada(minutoActual);
@@ -168,6 +172,11 @@ export class Tecnico {
         this.rndTrabajo = null;
         this.trabajoRequerido = null;
         this.tiempoOcupacionTecnico = null;
+    }
+
+    setTrabajandoEn() {
+        this.idComputadoraActual = this.computadoraActual.idComputadora;
+        this.trabajandoEn = this.trabajoRequerido.obtenerDescripcion();
     }
 
 }

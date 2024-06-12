@@ -4,6 +4,7 @@ import { EventoFinEtapa2 } from "./EventoFinEtapa2.js";
 import { EventoLlegadaComputadora } from "./EventoLlegadaComputador.js";
 import { TablaProbabilidad } from "./TablaProbabilidad.js";
 import { Tecnico } from "./Tecnico.js";
+import { EventoFinSimulacion } from "./EventoFinSimulacion.js";
 
 export class GestorSimulacion {
 
@@ -17,10 +18,10 @@ export class GestorSimulacion {
         // Esta tabla de probabilidad, tiene como filas los trabajos. Cada trabajo tiene un metodo para calcular su tiempo requerido.
         this.tecnico = new Tecnico(
             new TablaProbabilidad(desviacion, [
-                {valor: {tiempo: cambioPlaca.tiempo, trabajo: "A: Cambio de Placa"}, probabilidad: cambioPlaca.probabilidad},
-                {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "B: Ampliacion Memoria"}, probabilidad: ampliacionMemoria.probabilidad},
-                {valor: {tiempo: formateoDisco.tiempo, trabajo: "C: Formateo Disco"}, probabilidad: formateoDisco.probabilidad},
-                {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "D: Agregar CD o DVD"}, probabilidad: agregarCdoDvd.probabilidad}]),
+                {valor: {tiempo: cambioPlaca.tiempo, trabajo: "Cambio de Placa"}, probabilidad: cambioPlaca.probabilidad},
+                {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "Ampliacion Memoria"}, probabilidad: ampliacionMemoria.probabilidad},
+                {valor: {tiempo: formateoDisco.tiempo, trabajo: "Formateo Disco"}, probabilidad: formateoDisco.probabilidad},
+                {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: agregarCdoDvd.probabilidad}]),
             tiempoTrabajoInicialFormateo,
             tiempoTrabajoFinalFormateo,
             this
@@ -34,6 +35,7 @@ export class GestorSimulacion {
         this.eventoLlegadaComputadora = new EventoLlegadaComputadora(0, Math.random(), this.tecnico, this);
         this.eventoFinArreglo = new EventoFinArreglo(this.tecnico);
         this.eventoFinEtapa1 = new EventoFinEtapa1(this.tecnico);
+        this.eventoFinSimulacion = new EventoFinSimulacion(x, this);
 
         this.arrayEventoFinEtapa2 = [];
         this.computadoras = [];
@@ -47,26 +49,9 @@ export class GestorSimulacion {
 
     iniciarSimulacion() {
 
-        let evento;
-
-        while (this.reloj <= limite) {
-
-            evento = this.obtenerSiguienteEvento();
-            this.reloj = evento.getTiempoOcurrencia();
-            evento.disparar();
-            this.contadorSimulaciones += 1;
-            if (linf <=this.contadorSimulaciones <= lsup) {
-                this.vectorEstados.add(this.crearLineaVectorEstado());
-            }
-        }
-    };
-
-    test() {
-
         let vectorEstados = [];
-        vectorEstados.push(this.crearLineaVectorEstado());
-
         let cantSimulaciones = 0;
+        
         while (cantSimulaciones <= 20) {
             this.eventoActual = this.obtenerSiguienteEvento();
             this.reloj = this.eventoActual.getTiempoOcurrencia();
@@ -78,6 +63,37 @@ export class GestorSimulacion {
         }
 
         console.log(JSON.stringify(vectorEstados));
+    };
+
+    test() {
+
+        let vectorEstados = [];
+        let cantSimulaciones = 0;
+        let cantIteracionesVecEstados = 0;
+
+        while (cantSimulaciones <= 1000000 && this.reloj < this.x) {
+            if(this.reloj >= this.minutoDesde && cantIteracionesVecEstados < this.numeroIteraciones) {
+                vectorEstados.push(this.crearLineaVectorEstado());
+                cantIteracionesVecEstados += 1
+            }
+            this.eventoActual = this.obtenerSiguienteEvento();
+            this.reloj = this.eventoActual.getTiempoOcurrencia();
+            this.eventoActual.disparar(this.reloj);
+            this.limpiarEstado();
+            cantSimulaciones += 1;
+        }
+        if(this.reloj === this.x) {
+            vectorEstados.push(this.crearLineaVectorEstado());
+        }
+        let response = {
+            ultimaFilaVecEstado: this.crearLineaVectorEstado(),
+            vectorEstadoVisible: vectorEstados
+        }
+
+        console.log(JSON.stringify(vectorEstados))
+        console.log('***************')
+        console.log(JSON.stringify(response.ultimaFilaVecEstado))
+        return response
         
     }
 
@@ -88,6 +104,10 @@ export class GestorSimulacion {
         }
         if(this.eventoFinEtapa1.getTiempoOcurrencia() != null && this.eventoFinEtapa1.getTiempoOcurrencia() < siguienteEvento.getTiempoOcurrencia()) {
             siguienteEvento = this.eventoFinEtapa1;
+        }
+
+        if(this.eventoFinSimulacion.getTiempoOcurrencia() < siguienteEvento.getTiempoOcurrencia()) {
+            siguienteEvento = this.eventoFinSimulacion
         }
 
         this.arrayEventoFinEtapa2.forEach(e => {
@@ -144,6 +164,7 @@ export class GestorSimulacion {
 
         linea.tecnico = {
             estado: this.tecnico.estado,
+            idComputadora: this.tecnico.idComputadoraActual,
             trabajandoEn: this.tecnico.trabajandoEn,
             colaComputadorasPorArreglar: this.tecnico.colaComputadorasPorArreglar.length,
             colaComputadorasFormateadas: this.tecnico.colaComputadorasFormateadas.length,
