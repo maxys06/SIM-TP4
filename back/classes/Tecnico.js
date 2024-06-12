@@ -141,7 +141,8 @@ export class Tecnico {
 
         this.estado = 'Ocupado';
         this.computadoraActual = computadoraFormateada;
-        this.trabajandoEn = `${this.computadoraActual.idComputadora} | C: Etapa final`
+        
+        this.setTrabajandoEn()
         this.computadoraActual.siendoArreglada(minutoActual + this.tiempoTrabajoFinalFormateo);
         //mandamos el minuto actual, el tiempo que tarda, y el nulo hace referencia a un RND,
         // pero en este caso, no se utiliza ningun numero aleatorio.
@@ -177,7 +178,7 @@ export class Tecnico {
 
     setTrabajandoEn() {
         this.idComputadoraActual = this.computadoraActual.idComputadora;
-        this.trabajandoEn = this.trabajoRequerido.obtenerDescripcion();
+        this.trabajoRequerido ?  this.trabajandoEn = this.trabajoRequerido.obtenerDescripcion() : this.trabajandoEn = "Terminando Formateo";
     }
 
 }

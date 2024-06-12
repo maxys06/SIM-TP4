@@ -5,6 +5,7 @@
   padding: 100ch;
   width: 100%;
   box-sizing: border-box;
+  align-content: center;
 }
 
 .fieldsetHeader {

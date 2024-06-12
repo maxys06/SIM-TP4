@@ -65,9 +65,6 @@ export class GestorSimulacion {
             
             cantSimulaciones += 1;
         }
-        if(this.reloj === this.x) {
-            vectorEstados.push(this.crearLineaVectorEstado());
-        }
         let response = {
             ultimaFilaVecEstado: [this.crearLineaVectorEstado()],
             vectorEstadoVisible: vectorEstados

@@ -30,7 +30,7 @@ export class TablaProbabilidad {
             limSupAnterior = limSup;
             }
             
-            filas.push(new Trabajo(desviacion, valor.tiempo, valor.trabajo, probabilidadAsociada, parseFloat(limInf.toFixed(4)), parseFloat(limSup.toFixed(4))));
+            filas.push(new Trabajo(desviacion, valor.tiempo, valor.trabajo, probabilidadAsociada, parseFloat(limInf), parseFloat(limSup)));
         }
         
         return filas;

@@ -34,7 +34,7 @@ app.post('/api/simulacion', async (req, res) => {
       req.body.tiempoTrabajoInicialFormateo,
       req.body.tiempoTrabajoFinalFormateo,
     )
-
+    
     let response = gestor.iniciarSimulacion();
 
     res.json(response);

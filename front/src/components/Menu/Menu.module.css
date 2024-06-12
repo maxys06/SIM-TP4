@@ -2,7 +2,7 @@
   padding: 2ch;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center; /* Centrar los elementos horizontalmente */
   gap: 1ch;
 }
 
@@ -11,10 +11,12 @@
   flex-direction: column;
   background-color: rgb(253, 253, 253);
   border: 1px solid rgb(199, 199, 199);
-  width: 100%;
+  width: auto; /* Ajuste del ancho automático */
+  max-width: 100%; /* Asegurarse de que no se desborde */
 }
 
 .inputsContainer {
+  align-content: center;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -118,4 +120,3 @@
 .fieldsetProbabilidades .column > div {
   margin-bottom: 1ch;
 }
-
