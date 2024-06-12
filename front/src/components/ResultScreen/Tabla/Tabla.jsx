@@ -18,7 +18,7 @@ export default function Tabla({ datos, sticky=true }) {
                     <th className={style.stickyTopHeader}>Contador de Computadoras Arregladas</th>
                     <th className={style.stickyTopHeader}>Tiempo Permanencia PC</th>
                     <th className={style.stickyTopHeader}>Acumulador Tiempo Permanencia</th>
-                    <th className={style.stickyTopHeader}>Acumulador Tiempo Permanencia Promedio</th>
+                    <th className={style.stickyTopHeader}>Tiempo Permanencia Promedio</th>
                     <th className={style.stickyTopHeader}>Computadoras</th>
                 </tr>
             </thead>    

@@ -53,7 +53,7 @@ export class GestorSimulacion {
         let cantSimulaciones = 0;
         let cantIteracionesVecEstados = 0;
 
-        while (cantSimulaciones <= 1000000 && this.reloj < this.x) {
+        while (cantSimulaciones <= 100000 && this.reloj < this.x) {
             if(this.reloj >= this.minutoDesde && cantIteracionesVecEstados < this.numeroIteraciones) {
                 vectorEstados.push(this.crearLineaVectorEstado());
                 this.limpiarEstado();

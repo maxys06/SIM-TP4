@@ -143,7 +143,7 @@ export class Tecnico {
         this.computadoraActual = computadoraFormateada;
         
         this.setTrabajandoEn()
-        this.computadoraActual.siendoArreglada(minutoActual + this.tiempoTrabajoFinalFormateo);
+        this.computadoraActual.siendoArreglada();
         //mandamos el minuto actual, el tiempo que tarda, y el nulo hace referencia a un RND,
         // pero en este caso, no se utiliza ningun numero aleatorio.
         this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, null, this.tiempoTrabajoFinalFormateo)
