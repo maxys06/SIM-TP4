@@ -25,7 +25,7 @@ export default function Tabla({ datos, sticky=true }) {
             <tbody>
                 {datos.map((item, idx) => (
                     <tr key={idx}>
-                        <td>{item.reloj}</td>
+                        <td>{item.reloj.toFixed(2)}</td>
                         <td>{item.evento}</td>
                         <td>
                             {item.eventoLlegadaComputadora ?  
@@ -41,7 +41,7 @@ export default function Tabla({ datos, sticky=true }) {
                                     <tr>
                                         <td>{item.eventoLlegadaComputadora.rnd ? item.eventoLlegadaComputadora.rnd.toFixed(2) : '-'}</td>
                                         <td>{item.eventoLlegadaComputadora.tiempo ? item.eventoLlegadaComputadora.tiempo.toFixed(2) : '-'}</td>
-                                        <td>{item.eventoLlegadaComputadora.proxLlegada ? item.eventoLlegadaComputadora.proxLlegada  : '-' }</td>
+                                        <td>{item.eventoLlegadaComputadora.proxLlegada ? item.eventoLlegadaComputadora.proxLlegada.toFixed(2)  : '-' }</td>
                                     </tr>
 
                                     
@@ -63,7 +63,7 @@ export default function Tabla({ datos, sticky=true }) {
                                     <tr>
                                         <td>{item.eventoFinArreglo.rnd ? item.eventoFinArreglo.rnd.toFixed(2) : '-'}</td>
                                         <td>{item.eventoFinArreglo.tiempo ? item.eventoFinArreglo.tiempo.toFixed(2) : '-'}</td>
-                                        <td>{item.eventoFinArreglo.finArreglo ? item.eventoFinArreglo.finArreglo  : '-' }</td>
+                                        <td>{item.eventoFinArreglo.finArreglo ? item.eventoFinArreglo.finArreglo.toFixed(2)  : '-' }</td>
                                     </tr>
                                     
                                 </table>
@@ -85,7 +85,7 @@ export default function Tabla({ datos, sticky=true }) {
                                     <tr>
                                         <td>{item.eventoFinEtapa1.rnd ? item.eventoFinEtapa1.rnd.toFixed(2) : '-'}</td>
                                         <td>{item.eventoFinEtapa1.tiempo ? item.eventoFinEtapa1.tiempo.toFixed(2) : '-'}</td>
-                                        <td>{item.eventoFinEtapa1.finEtapa1 ? item.eventoFinEtapa1.finEtapa1 : '-' }</td>
+                                        <td>{item.eventoFinEtapa1.finEtapa1 ? item.eventoFinEtapa1.finEtapa1.toFixed(2) : '-' }</td>
                                     </tr>
 
                                     
@@ -104,7 +104,7 @@ export default function Tabla({ datos, sticky=true }) {
                                     </thead>
                                     {item.arrayEventoFinEtapa2.map((Evento)=> (
                                         <tr key={Evento.computadora}>
-                                            <td>{Evento.tiempo}</td>
+                                            <td>{Evento.tiempo.toFixed(2)}</td>
                                             <td>{Evento.computadora}</td>
                                         </tr>
                                     ))}
@@ -187,7 +187,7 @@ export default function Tabla({ datos, sticky=true }) {
                                             <td>{pc.estado}</td>
                                             <td>{pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</td>
                                             <td>{pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null }</td>
-                                            <td>{pc.timepoInicioArreglo ? pc.timepoInicioArreglo.toFixed(2) : null}</td>
+                                            <td>{pc.tiempoInicioArreglo ? pc.tiempoInicioArreglo.toFixed(2) : null}</td>
                                         </tr>
                                     ))}
                                 </table>
