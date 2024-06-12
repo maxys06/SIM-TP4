@@ -73,7 +73,7 @@ export function Menu() {
                     }}
                     type='number'
                     error={errors.numeroIteraciones}
-                    step={0.1}
+                    step={1}
                   />
                   <Input 
                     attributeName='minutoDesde' 
