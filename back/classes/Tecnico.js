@@ -100,7 +100,7 @@ export class Tecnico {
         
         this.computadoraActual = computadora;
 
-        if (this.trabajoRequerido.descripcion === 'C: Formateo Disco') {
+        if (this.trabajoRequerido.descripcion === 'Formateo Disco') {
 
             this.setTrabajandoEn();
 

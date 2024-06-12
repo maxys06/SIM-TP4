@@ -31,8 +31,8 @@ app.post('/api/simulacion', async (req, res) => {
       req.body.ampliacionMemoria,
       req.body.formateoDisco,
       req.body.agregarCdoDvd,
-      req.body.trabajoInicialFormateo,
-      req.body.trabajoFinalFormateo,
+      req.body.tiempoTrabajoInicialFormateo,
+      req.body.tiempoTrabajoFinalFormateo,
     )
 
     let response = gestor.iniciarSimulacion();
