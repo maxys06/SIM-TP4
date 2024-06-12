@@ -56,12 +56,13 @@ export class GestorSimulacion {
         while (cantSimulaciones <= 1000000 && this.reloj < this.x) {
             if(this.reloj >= this.minutoDesde && cantIteracionesVecEstados < this.numeroIteraciones) {
                 vectorEstados.push(this.crearLineaVectorEstado());
+                this.limpiarEstado();
                 cantIteracionesVecEstados += 1
             }
             this.eventoActual = this.obtenerSiguienteEvento();
             this.reloj = this.eventoActual.getTiempoOcurrencia();
             this.eventoActual.disparar(this.reloj);
-            this.limpiarEstado();
+            
             cantSimulaciones += 1;
         }
         if(this.reloj === this.x) {

@@ -21,6 +21,7 @@ export class Tecnico {
         this.tablaTrabajos = tablaTrabajos;
         this.tiempoTrabajoInicialFormateo = tiempoTrabajoInicialFormateo;
         this.tiempoTrabajoFinalFormateo = tiempoTrabajoFinalFormateo; 
+        
         this.rndTrabajo = null;
         this.trabajoRequerido = null;
 
