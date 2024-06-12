@@ -5,7 +5,8 @@ export function ResultScreen({ data }) {
   return (
     <section className={styles.resultScreen}>
       <header>Resultados de la Simulación</header>
-       <Tabla datos={data}/>
+        <Tabla datos={data.ultimaFilaVecEstado} sticky = {false}/>
+       <Tabla datos={data.vectorEstadoVisible}/>
     </section>
   );
 }

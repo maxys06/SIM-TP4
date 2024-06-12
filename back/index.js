@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import qs from 'qs';
-import { GestorSimulacion } from './classes/GestorSimulacion';
+import { GestorSimulacion } from './classes/GestorSimulacion.js';
 
 const port = 5174;
 const app = express();

@@ -9,6 +9,7 @@ export class EventoLlegadaComputadora {
         this.proxLlegada = minutoActual + this.tiempo;
         this.tecnico = tecnico;
         this.contextoSimulacion = contextoSimulacion;
+        
 
     }
 
@@ -20,14 +21,14 @@ export class EventoLlegadaComputadora {
 
         // Tecnico esta Libre
         if(this.tecnico.estaLibre()) {
-            let computadora = new Computadora("Siendo arreglada", minutoActual);
+            let computadora = new Computadora("Siendo arreglada", minutoActual, this.contextoSimulacion.getSiguienteID());
             this.contextoSimulacion.agregarComputadora(computadora);
             this.tecnico.comenzarTrabajo(minutoActual, computadora);
         }
         else {
         //Hay espacio en la cola?
             if (this.tecnico.tieneEspacio()) {
-                let computadora = new Computadora("En espera", minutoActual);
+                let computadora = new Computadora("En espera", minutoActual, this.contextoSimulacion.getSiguienteID());
                 this.contextoSimulacion.agregarComputadora(computadora);
                 this.tecnico.agregarACola(computadora);
             }

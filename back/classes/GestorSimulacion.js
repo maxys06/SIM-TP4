@@ -27,7 +27,7 @@ export class GestorSimulacion {
             this
         );
 
-
+        this.contadorGlobalComputadora = 0
         this.contadorComputadorasArregladas = 0;
         this.tiempoPermanenciaPc = null;
         this.acumTiempoPermanencia = 0;
@@ -51,24 +51,6 @@ export class GestorSimulacion {
 
         let vectorEstados = [];
         let cantSimulaciones = 0;
-        
-        while (cantSimulaciones <= 20) {
-            this.eventoActual = this.obtenerSiguienteEvento();
-            this.reloj = this.eventoActual.getTiempoOcurrencia();
-            console.log(this.eventoActual.getDescripcion());
-            this.eventoActual.disparar(this.reloj);
-            vectorEstados.push(this.crearLineaVectorEstado());
-            this.limpiarEstado();
-            cantSimulaciones += 1;
-        }
-
-        console.log(JSON.stringify(vectorEstados));
-    };
-
-    test() {
-
-        let vectorEstados = [];
-        let cantSimulaciones = 0;
         let cantIteracionesVecEstados = 0;
 
         while (cantSimulaciones <= 1000000 && this.reloj < this.x) {
@@ -86,7 +68,7 @@ export class GestorSimulacion {
             vectorEstados.push(this.crearLineaVectorEstado());
         }
         let response = {
-            ultimaFilaVecEstado: this.crearLineaVectorEstado(),
+            ultimaFilaVecEstado: [this.crearLineaVectorEstado()],
             vectorEstadoVisible: vectorEstados
         }
 
@@ -95,6 +77,11 @@ export class GestorSimulacion {
         console.log(JSON.stringify(response.ultimaFilaVecEstado))
         return response
         
+    };
+
+    getSiguienteID(){
+        this.contadorGlobalComputadora += 1;
+        return this.contadorGlobalComputadora;
     }
 
     obtenerSiguienteEvento() {

@@ -25,83 +25,174 @@ export default function Tabla({ datos, sticky=true }) {
             <tbody>
                 {datos.map((item, idx) => (
                     <tr key={idx}>
-                        <td>{item.reloj.toFixed(2)}</td>
+                        <td>{item.reloj}</td>
                         <td>{item.evento}</td>
                         <td>
-                            {item.eventoLlegadaComputadora ? (
-                                <>
-                                    <div>RND: {item.eventoLlegadaComputadora.rnd ? item.eventoLlegadaComputadora.rnd.toFixed(2) : null }</div>
-                                    <div>Tiempo: {item.eventoLlegadaComputadora.tiempo ? item.eventoLlegadaComputadora.tiempo.toFixed(2) : null }</div>
-                                    <div>ProxLlegada: {item.eventoLlegadaComputadora.proxLlegada ? item.eventoLlegadaComputadora.proxLlegada.toFixed(2) : null}</div>
-                                </>
-                            ) : null}
-                        </td>
-                        <td>
-                            {item.eventoFinArreglo ? (
-                                <>
-                                    <div>RND: {item.eventoFinArreglo.rnd ? item.eventoFinArreglo.rnd.toFixed(2) : null}</div>
-                                    <div>Tiempo: {item.eventoFinArreglo.tiempo ? item.eventoFinArreglo.tiempo.toFixed(2) : null}</div>
-                                    <div>FinArreglo: {item.eventoFinArreglo.finArreglo ? item.eventoFinArreglo.finArreglo.toFixed(2) : null }</div>
-                                </>
-                            ) : null}
-                        </td>
-                        <td>
-                            {item.eventoFinEtapa1 ? (
-                                <>
-                                    <div>RND: {item.eventoFinEtapa1.rnd ? item.eventoFinEtapa1.rnd.toFixed(2) : null}</div>
-                                    <div>Tiempo: {item.eventoFinEtapa1.tiempo ? item.eventoFinEtapa1.tiempo.toFixed(2) : null }</div>
-                                    <div>FinEtapa1: {item.eventoFinEtapa1.finEtapa1 ? item.eventoFinEtapa1.finEtapa1.toFixed(2) : null }</div>
-                                </>
-                            ) : null}
-                        </td>
-                        <td>
-                            <div>
+                            {item.eventoLlegadaComputadora ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>RND</th>
+                                            <th>Tiempo</th>
+                                            <th>Proxima Llegada</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>{item.eventoLlegadaComputadora.rnd ? item.eventoLlegadaComputadora.rnd.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoLlegadaComputadora.tiempo ? item.eventoLlegadaComputadora.tiempo.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoLlegadaComputadora.proxLlegada ? item.eventoLlegadaComputadora.proxLlegada  : '-' }</td>
+                                    </tr>
 
-                            {item.arrayEventoFinEtapa2.map((evento, idx) => (
-                                <div key={idx}>
-                                    <div>Tiempo: {evento.tiempo ? evento.tiempo.toFixed(2) : null}</div>
-                                    <div>Computadora: {evento.computadora}</div>
-                                </div>
-                            ))}
-                            </div>
+                                    
+                                </table>
+                            : null
+                            }
                         </td>
                         <td>
-                            {item.trabajo ? (
-                                <>
-                                    <div>RND: {item.trabajo.rnd ? item.trabajo.rnd.toFixed(2) : null}</div>
-                                    <div>Trabajo Requerido: {item.trabajo.trabajoRequerido}</div>
-                                </>
-                            ) : null}
+                            {item.eventoFinArreglo ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>RND</th>
+                                            <th>Tiempo</th>
+                                            <th>Fin Arreglo</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tr>
+                                        <td>{item.eventoFinArreglo.rnd ? item.eventoFinArreglo.rnd.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoFinArreglo.tiempo ? item.eventoFinArreglo.tiempo.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoFinArreglo.finArreglo ? item.eventoFinArreglo.finArreglo  : '-' }</td>
+                                    </tr>
+                                    
+                                </table>
+                            : null
+                            }
                         </td>
                         <td>
-                            {item.tecnico ? (
-                                <>
-                                    <div>Estado: {item.tecnico.estado}</div>
-                                    <div>Trabajando En: {item.tecnico.trabajandoEn}</div>
-                                    <div>Cola Computadoras Por Arreglar: {item.tecnico.colaComputadorasPorArreglar}</div>
-                                    <div>Cola Computadoras Formateadas: {item.tecnico.colaComputadorasFormateadas}</div>
-                                    <div>Tiempo Ocupacion Tecnico: {item.tecnico.tiempoOcupacionTecnico }</div>
-                                    <div>Acum Tiempo Ocupacion Tecnico: {item.tecnico.acumTiempoOcupacionTecnico ? item.tecnico.acumTiempoOcupacionTecnico.toFixed(2) : null }</div>
-                                    <div>Proporcion Ocupacion Tecnico: {item.tecnico.proporcionOcupacionTecnico ? item.tecnico.proporcionOcupacionTecnico.toFixed(2) + '%' : null }</div>
-                                </>
-                            ) : null}
+                            {item.eventoFinEtapa1 ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>RND</th>
+                                            <th>Tiempo</th>
+                                            <th>Fin Etapa 1</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tr>
+                                        <td>{item.eventoFinEtapa1.rnd ? item.eventoFinEtapa1.rnd.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoFinEtapa1.tiempo ? item.eventoFinEtapa1.tiempo.toFixed(2) : '-'}</td>
+                                        <td>{item.eventoFinEtapa1.finEtapa1 ? item.eventoFinEtapa1.finEtapa1 : '-' }</td>
+                                    </tr>
+
+                                    
+                                </table>
+                            : null
+                            }
+                        </td>
+                        <td>
+                            {item.arrayEventoFinEtapa2.length > 0 ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>Tiempo</th>
+                                            <th>Computadora</th>
+                                        </tr>
+                                    </thead>
+                                    {item.arrayEventoFinEtapa2.map((Evento)=> (
+                                        <tr key={Evento.computadora}>
+                                            <td>{Evento.tiempo}</td>
+                                            <td>{Evento.computadora}</td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            : null
+                            }
+                        </td>
+                        <td>
+                            {item.trabajo.rnd ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>RND</th>
+                                            <th>Trabajo Requerido</th>        
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>{item.trabajo.rnd ? item.trabajo.rnd.toFixed(2) : '-'}</td>
+                                        <td>{item.trabajo.trabajoRequerido}</td>
+                                    </tr>
+
+                                </table>
+                            : null
+                            }
+                        </td>
+                        <td>
+                            {item.tecnico ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>Estado</th>
+                                            <th>ID Computadora</th>
+                                            <th>Tipo Trabajo</th>
+                                            <th>Cola Computadoras Por Arreglar</th>
+                                            <th>Cola Computadoras Formateada</th>
+                                            <th>Tiempo Ocupacion Tecnico</th>
+                                            <th>Acum Tiempo Ocupacion Tecnico</th>
+                                            <th>Proporcion Ocupacion Tecnico</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tr>
+                                        <td>{item.tecnico.estado}</td>
+                                        <td>{item.tecnico.idComputadora}</td>
+                                        <td>{item.tecnico.trabajandoEn}</td>
+                                        <td>{item.tecnico.colaComputadorasPorArreglar}</td>
+                                        <td>{item.tecnico.colaComputadorasFormateadas }</td>
+                                        <td>{item.tecnico.acumTiempoOcupacionTecnico ? item.tecnico.acumTiempoOcupacionTecnico.toFixed(2) : '-'}</td>
+                            
+                                        <td>{item.tecnico.acumTiempoOcupacionTecnico ? item.tecnico.acumTiempoOcupacionTecnico.toFixed(2) : '-'}</td>
+                                        <td>{item.tecnico.proporcionOcupacionTecnico ? item.tecnico.proporcionOcupacionTecnico.toFixed(2) * 100+ '%' : null }</td>
+                                    </tr>
+
+                                    
+                                </table>
+                            : null
+                            }
                         </td>
                         <td>{item.contadorComputadorasArregladas}</td>
                         <td>{item.tiempoPermanenciaPc ? item.tiempoPermanenciaPc.toFixed(2) :  '-'}</td>
                         <td>{item.acumTiempoPermanencia ? item.acumTiempoPermanencia.toFixed(2) : '-' }</td>
                         <td>{item.acumTiempoPermanenciaPromedio ? item.acumTiempoPermanenciaPromedio.toFixed(2) : '-'}</td>
                         <td>
-                            <div>
-                            {item.computadoras.map((pc)=> (
-                                <div key={pc.idComputadora}>
-                                    <div>ID: {pc.idComputadora}</div>
-                                    <div>Estado: {pc.estado}</div>
-                                    <div>Tiempo Llegada: {pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</div>
-                                    <div>Tiempo Fin Espera: {pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null }</div>
-                                    <div>Tiempo Fin Arreglo: {pc.tiempoFinArreglo ? pc.tiempoFinArreglo.toFixed(2) : null}</div>
-                                </div>
-                            ))}
-                            </div>
+                            {item.computadoras.length > 0 ?  
+                                <table className= {style.Minitable} >
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Estado</th>
+                                            <th>Tiempo Llegada:</th>
+                                            <th>Tiempo Fin Espera:</th>
+                                            <th>Tiempo Inicio Arreglado</th>
+                                        </tr>
+                                    </thead>
+                                    {item.computadoras.map((pc)=> (
+                                        <tr key={pc.id}>
+                                            <td>{pc.id}</td>
+                                            <td>{pc.estado}</td>
+                                            <td>{pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</td>
+                                            <td>{pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null }</td>
+                                            <td>{pc.timepoInicioArreglo ? pc.timepoInicioArreglo.toFixed(2) : null}</td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            : null
+                            }
                         </td>
                     </tr>
                 ))}

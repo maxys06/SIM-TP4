@@ -8,28 +8,28 @@ import { ResultScreen } from '../ResultScreen/ResultScreen';
 export function Menu() {
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({
     defaultValues: {
-      tiempoX: 1,
-      cantidadIteraciones: 5,
-      minutoDesde: 5,
+      x: 300,
+      numeroIteraciones: 20,
+      minutoDesde: 0,
       cambioPlaca: {
-          probabilidad: 0,
-          tiempo: 0
+          probabilidad: 0.3,
+          tiempo: 120
       },
       ampliacionMemoria: {
-          probabilidad: 0,
-          tiempo: 0
+          probabilidad: 0.25,
+          tiempo: 60
       },
       formateoDisco: {
-          probabilidad: 0,
-          tiempo: 0
+          probabilidad: 0.25,
+          tiempo: 180
       },
       agregarCdoDvd: {
-          probabilidad: 0,
-          tiempo: 0
+          probabilidad: 0.2,
+          tiempo: 60
       },
-      desviacion: 0,
-      tiempoTrabajoInicialFormateo: 0,
-      tiempoTrabajoFinalFormateo: 0
+      desviacion: 5,
+      tiempoTrabajoInicialFormateo: 15,
+      tiempoTrabajoFinalFormateo: 15
     },
     mode: 'onSubmit',
   });
@@ -41,7 +41,7 @@ export function Menu() {
     setResults(result);
   }
 
-  let tiempoX = watch('tiempoX');
+  let x = watch('tiempoX');
   let cantidadIteraciones = watch('cantidadIteraciones');
   let minutoDesde = watch('minutoDesde');
 
@@ -55,16 +55,16 @@ export function Menu() {
         <div className={styles.inputsContainer}>
             <Fieldset header='Parametros De Simulacion'>
                   <Input 
-                    attributeName='tiempoX' 
+                    attributeName='x' 
                     label='Tiempo Simulacion X (minutos): ' 
                     register={register}
                     validations={{ required: "Este campo es obligatorio" }}
                     type='number'
-                    error={errors.tiempoX}
+                    error={errors.x}
                     step={0.1}
                   />
                   <Input 
-                    attributeName='cantidadIteraciones' 
+                    attributeName='numeroIteraciones' 
                     label='Cantidad Iteraciones: ' 
                     register={register}
                     validations={{required: {value: true, message: "Se deben ingresar la cantidad de simulaciones a realizar"}, 
@@ -72,7 +72,7 @@ export function Menu() {
                     max: {value: 100000, message: "No se pueden generar mas de 100000 simulaciones"}
                     }}
                     type='number'
-                    error={errors.cantidadIteraciones}
+                    error={errors.numeroIteraciones}
                     step={0.1}
                   />
                   <Input 
@@ -80,8 +80,8 @@ export function Menu() {
                     label='Minuto desde cual mostrar: ' 
                     register={register}
                     validations={{required: {value: true, message: "Se deben ingresar la primera simulacion a visualizar"}, 
-                                min: {value: 1, message: "Se debe visualizar al menos una simulacion"},
-                                max: {value: Number(minutoDesde), message: `No debe se puede visualizar mas de ${Number(minutoDesde)} simulaciones`}
+                                min: {value: 0, message: "Se debe visualizar al menos una simulacion"},
+                                max: {value: x, message: `No puede mostrar mas de ${x} minutos`}
                                 }}
                     type='number'
                     error={errors.minutoDesde}
@@ -125,7 +125,10 @@ export function Menu() {
                       attributeName='cambioPlaca.probabilidad' 
                       label='Probabilidad: ' 
                       register={register}
-                      validations={{ required: "Este campo es obligatorio" }}
+                      validations={{ required: "Este campo es obligatorio" ,
+                        max: {value:1, message: "La probabilidad no puede ser mayor que 1"},
+                        min: {value:0, message:"La probabilidad no puede ser menor que 0"}
+                      }}
                       type='number'
                       step={0.01}
                       error={errors.cambioPlaca?.probabilidad}
@@ -147,7 +150,10 @@ export function Menu() {
                       attributeName='ampliacionMemoria.probabilidad' 
                       label='Probabilidad: ' 
                       register={register}
-                      validations={{ required: "Este campo es obligatorio" }}
+                      validations={{ required: "Este campo es obligatorio" ,
+                        max: {value:1, message: "La probabilidad no puede ser mayor que 1"},
+                        min: {value:0, message:"La probabilidad no puede ser menor que 0"}
+                      }}
                       type='number'
                       step={0.01}
                       error={errors.ampliacionMemoria?.probabilidad}
@@ -171,7 +177,10 @@ export function Menu() {
                       attributeName='formateoDisco.probabilidad' 
                       label='Probabilidad: ' 
                       register={register}
-                      validations={{ required: "Este campo es obligatorio" }}
+                      validations={{ required: "Este campo es obligatorio" ,
+                        max: {value:1, message: "La probabilidad no puede ser mayor que 1"},
+                        min: {value:0, message:"La probabilidad no puede ser menor que 0"}
+                      }}
                       type='number'
                       step={0.01}
                       error={errors.formateoDisco?.probabilidad}
@@ -193,7 +202,10 @@ export function Menu() {
                       attributeName='agregarCdoDvd.probabilidad' 
                       label='Probabilidad: ' 
                       register={register}
-                      validations={{ required: "Este campo es obligatorio" }}
+                      validations={{ required: "Este campo es obligatorio" ,
+                        max: {value:1, message: "La probabilidad no puede ser mayor que 1"},
+                        min: {value:0, message:"La probabilidad no puede ser menor que 0"}
+                      }}
                       type='number'
                       step={0.01}
                       error={errors.agregarCdoDvd?.probabilidad}

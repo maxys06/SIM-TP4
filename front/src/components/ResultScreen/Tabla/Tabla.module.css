@@ -14,7 +14,7 @@
   
   .table th {
     background-color: rgb(250, 248, 248);
-    border: 1px solid rgb(146, 146, 146);
+    border: 1px solid rgb(124, 124, 124);
     padding: .1ch;
     font-size: 1.4ch;
   }
@@ -40,11 +40,64 @@
   .table td:first-child, .headerSticky{
     position: sticky;
     left: 0;
-    border: 1px solid rgb(138, 135, 135) !important;
+    border: 1px solid rgb(171, 170, 170) !important;
     z-index: 1;
   }
 
 
+  .Minitable {
+    overflow-x: auto;
+    overflow-y: auto;
+    display: block;
+    padding-bottom: 3ch;
+    max-height: 30rem;
+  }
+
+  
+  .Minitable th, .table td {
+    width: 10rem;
+  }
+  
+  .Minitable th {
+    background-color: rgba(145, 233, 177, 0.417);
+    border: 1px solid rgb(146, 146, 146);
+    padding: .1ch;
+    
+    font-size: 1.4ch;
+  }
+  
+  .Minitable td {
+    border-right: solid rgb(216, 216, 216) 1px;
+    padding: .5ch;
+    text-align: center;
+    background-color: rgb(185, 172, 192);
+  }
+
+  
+  .Minitable caption {
+    font-size: 1.2rem;
+    padding: 1ch;
+    margin-bottom: .2ch;
+    text-align: center;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+  }
+
+  .Minitable td:first-child, .headerSticky{
+    position: sticky;
+    left: 0;
+    border: 1px solid rgb(54, 80, 70) !important;
+    z-index: 1;
+  }
+
+  .Minitable tr:nth-child(2n) td{
+    background-color: rgba(187, 234, 245, 0.358) !important
+  }
+
+  .Minitable tr:nth-child(3n) td{
+    background-color: rgba(246, 207, 246, 0.399) !important
+  }
 
   .stickyTopHeader {
     position: sticky;
@@ -54,13 +107,11 @@
 
 
 
-
-
   .sticky th {
     border: 1px solid gray;
   }
   
   .table tr:nth-child(2n) td {
-    background-color: rgb(218, 218, 218);
+    background-color: rgb(224, 224, 224);
   }
 

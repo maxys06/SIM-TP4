@@ -32,7 +32,7 @@ export class Tecnico {
     liberar() {
         this.estado = 'Libre';
         this.trabajandoEn = null;
-        this.idComputadoraActual = NULL;
+        this.idComputadoraActual = null;
     }
 
     estaLibre() {

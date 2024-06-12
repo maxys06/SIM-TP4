@@ -1,11 +1,10 @@
-let contadorGlobalComputadora = 0;
+
 
 export class Computadora {
 
-    constructor(estado, tiempoLlegada) {
+    constructor(estado, tiempoLlegada, id) {
 
-        this.idComputadora = contadorGlobalComputadora + 1;
-        contadorGlobalComputadora += 1;
+        this.idComputadora = id;
         this.tiempoLlegada = tiempoLlegada;
         this.estado = estado; // En espera, Siendo Arreglada, Arreglada, Rechazada, Formateado en curso, Formateo esperando tecnico. 
         this.tiempoFinEspera = null;
@@ -37,4 +36,5 @@ export class Computadora {
     }
 
 }
+
 
