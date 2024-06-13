@@ -140,7 +140,7 @@ export default function Tabla({ datos, sticky=true }) {
                         <td>{item.contadorComputadorasArregladas}</td>
                         <td>{item.tiempoPermanenciaPc ? item.tiempoPermanenciaPc.toFixed(2) : '-'}</td>
                         <td>{item.acumTiempoPermanencia ? item.acumTiempoPermanencia.toFixed(2) : '-' }</td>
-                        <td>{item.acumTiempoPermanenciaPromedio ? item.acumTiempoPermanenciaPromedio.toFixed(2) : '-'}</td>
+                        <td>{item.tiempoPermanenciaPromedio ? item.tiempoPermanenciaPromedio.toFixed(2) : '-'}</td>
                         <td>
                         <table className={style.Minitable}>
                             <thead>

@@ -49,11 +49,7 @@ export class Tecnico {
         this.colaComputadorasFormateadas.push(computadora);
     }
 
-    /** 
-     * TODO: Determinar bien como calculamos la estadistica de acumulacion del tecnico...
-     * Este metodo deberia destruir el objeto, y actualizar el contexto de simulacion el cambio en las
-     * estadisticas.
-     * **/
+
     finalizarArreglo(minutoActual) {
         
         this.contextoSimulacion.acumularPermanencia(this.computadoraActual.tiempoLlegada);

@@ -65,6 +65,7 @@ export class GestorSimulacion {
             
             cantSimulaciones += 1;
         }
+        this.limpiarEstado();
         let response = {
             ultimaFilaVecEstado: [this.crearLineaVectorEstado()],
             vectorEstadoVisible: vectorEstados
