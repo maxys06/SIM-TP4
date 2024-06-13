@@ -1,4 +1,5 @@
 export async function simularLaboratorio(data) {
+    console.log(data)
     const response = await fetch('http://localhost:5174/api/simulacion', {
       method: 'POST',
       headers: {

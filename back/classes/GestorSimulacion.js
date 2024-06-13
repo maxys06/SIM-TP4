@@ -18,10 +18,10 @@ export class GestorSimulacion {
         // Esta tabla de probabilidad, tiene como filas los trabajos. Cada trabajo tiene un metodo para calcular su tiempo requerido.
         this.tecnico = new Tecnico(
             new TablaProbabilidad(desviacion, [
-                {valor: {tiempo: cambioPlaca.tiempo, trabajo: "Cambio de Placa"}, probabilidad: cambioPlaca.probabilidad},
-                {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "Ampliacion Memoria"}, probabilidad: ampliacionMemoria.probabilidad},
-                {valor: {tiempo: formateoDisco.tiempo, trabajo: "Formateo Disco"}, probabilidad: formateoDisco.probabilidad},
-                {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: agregarCdoDvd.probabilidad}]),
+                {valor: {tiempo: cambioPlaca.tiempo, trabajo: "Cambio de Placa"}, probabilidad: Number(cambioPlaca.probabilidad)},
+                {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "Ampliacion Memoria"}, probabilidad: Number(ampliacionMemoria.probabilidad)},
+                {valor: {tiempo: formateoDisco.tiempo, trabajo: "Formateo Disco"}, probabilidad: Number(formateoDisco.probabilidad)},
+                {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: Number(agregarCdoDvd.probabilidad)}]),
             tiempoTrabajoInicialFormateo,
             tiempoTrabajoFinalFormateo,
             this
@@ -203,6 +203,10 @@ export class GestorSimulacion {
 
         this.computadoras = this.computadoras.filter(c => c != computadora);
 
+    }
+
+    hayLugar() {
+        return this.computadoras.length < 10;
     }
 
 

@@ -19,21 +19,25 @@ export class EventoLlegadaComputadora {
 
     disparar(minutoActual) {
 
-        // Tecnico esta Libre
-        if(this.tecnico.estaLibre()) {
-            let computadora = new Computadora("Siendo arreglada", minutoActual, this.contextoSimulacion.getSiguienteID());
-            this.contextoSimulacion.agregarComputadora(computadora);
-            this.tecnico.comenzarTrabajo(minutoActual, computadora);
-        }
-        else {
-        //Hay espacio en la cola?
-            if (this.tecnico.tieneEspacio()) {
-                let computadora = new Computadora("En espera", minutoActual, this.contextoSimulacion.getSiguienteID());
+
+        // Si hay lugar en el laboratiorio, procedemos
+        if(this.contextoSimulacion.hayLugar()) {
+            if(this.tecnico.estaLibre()) {
+                let computadora = new Computadora("Siendo arreglada", minutoActual, this.contextoSimulacion.getSiguienteID());
                 this.contextoSimulacion.agregarComputadora(computadora);
-                this.tecnico.agregarACola(computadora);
+                this.tecnico.comenzarTrabajo(minutoActual, computadora);
             }
-        // Si no hay espacio en la cola, desechamos el objeto.
+            else {
+            
+                    let computadora = new Computadora("En espera", minutoActual, this.contextoSimulacion.getSiguienteID());
+                    this.contextoSimulacion.agregarComputadora(computadora);
+                    this.tecnico.agregarACola(computadora);
+            
+            }
         }
+        // Si no hay espacio en el laboratorio, se desecha el objeto.
+
+
 
         // Generamos el proximo evento
         this.rnd = Math.random();

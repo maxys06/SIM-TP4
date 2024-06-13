@@ -21,6 +21,17 @@ app.get('/', (req, res) => {
 // Endpoints
 app.post('/api/simulacion', async (req, res) => {
   try{
+
+    console.log(      req.body.x,
+      req.body.numeroIteraciones,
+      req.body.minutoDesde,
+      req.body.desviacion,
+      req.body.cambioPlaca,
+      req.body.ampliacionMemoria,
+      req.body.formateoDisco,
+      req.body.agregarCdoDvd,
+      req.body.tiempoTrabajoInicialFormateo,
+      req.body.tiempoTrabajoFinalFormateo,)
     
     let gestor = new GestorSimulacion(
       req.body.x,

@@ -142,33 +142,44 @@ export default function Tabla({ datos, sticky=true }) {
                         <td>{item.acumTiempoPermanencia ? item.acumTiempoPermanencia.toFixed(2) : '-' }</td>
                         <td>{item.acumTiempoPermanenciaPromedio ? item.acumTiempoPermanenciaPromedio.toFixed(2) : '-'}</td>
                         <td>
-                            <table className={style.Minitable}>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Estado</th>
-                                        <th>Tiempo Llegada:</th>
-                                        <th>Tiempo Fin Espera:</th>
-                                        <th>Tiempo Inicio Arreglado</th>
-                                    </tr>
-                                </thead>
-                                {item.computadoras.length > 0 ? item.computadoras.map((pc)=> (
-                                    <tr key={pc.id}>
-                                        <td>{pc.id}</td>
-                                        <td>{pc.estado}</td>
-                                        <td>{pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</td>
-                                        <td>{pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null }</td>
-                                        <td>{pc.tiempoInicioArreglo ? pc.tiempoInicioArreglo.toFixed(2) : null}</td>
-                                    </tr>
-                                )) :
+                        <table className={style.Minitable}>
+                            <thead>
                                 <tr>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>}
-                            </table>
+                                    <th>ID</th>
+                                    <th>Estado</th>
+                                    <th>Tiempo Llegada</th>
+                                    <th>Tiempo Fin Espera</th>
+                                    <th>Tiempo Inicio Arreglado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {item.computadoras.length > 0 ? (
+                                    <>
+                                        {item.computadoras.map((pc) => (
+                                            <tr key={pc.id}>
+                                                <td>{pc.id}</td>
+                                                <td>{pc.estado}</td>
+                                                <td>{pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</td>
+                                                <td>{pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null}</td>
+                                                <td>{pc.tiempoInicioArreglo ? pc.tiempoInicioArreglo.toFixed(2) : null}</td>
+                                            </tr>
+                                        ))}
+                                        <tr>
+                                            <td colSpan="4">Cantidad en laboratorio: </td>
+                                            <td>{item.computadoras.length}</td>
+                                        </tr>
+                                    </>
+                                ) : (
+                                    <tr>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                         </td>
                     </tr>
                 ))}
