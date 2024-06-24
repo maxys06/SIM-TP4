@@ -1,5 +1,6 @@
 import { TablaProbabilidad } from "./classes/TablaProbabilidad.js";
 import { GestorSimulacion } from "./classes/GestorSimulacion.js";
+import { TablaRungeKutta } from "./classes/TablaRungeKutta.js";
 
 /*let {cambioPlaca, ampliacionMemoria, formateoDisco, agregarCdoDvd} = {
     cambioPlaca: {
@@ -36,7 +37,7 @@ console.log(trabajo);
 let tiempo = trabajo.obtenerTiempo(rnd);
 console.log(tiempo);*/
 
-let gestor = new GestorSimulacion(
+/*let gestor = new GestorSimulacion(
     300, 
     2000, 
     0, 
@@ -44,4 +45,15 @@ let gestor = new GestorSimulacion(
     {tiempo: 60, probabilidad: 0.25}, {tiempo: 80, probabilidad: 0.25}, {tiempo: 100, probabilidad: 0.25}, {tiempo: 120, probabilidad: 0.25}, 
     15, 
     15);
-gestor.test();
+gestor.test();*/
+
+let tabla = new TablaRungeKutta(50000, 1000000, 0.8, 0.05)
+tabla.generarTablaRungeKutta();
+let mostrar = [];
+
+let minutos = tabla.buscarMinutos(1000000);
+
+
+mostrar.push(tabla.arrayFilas[tabla.arrayFilas.length - 1])
+console.log(JSON.stringify(mostrar));
+console.log(minutos);

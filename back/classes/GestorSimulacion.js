@@ -8,7 +8,7 @@ import { EventoFinSimulacion } from "./EventoFinSimulacion.js";
 
 export class GestorSimulacion {
 
-    constructor(x, numeroIteraciones, minutoDesde, desviacion ,cambioPlaca,  ampliacionMemoria, formateoDisco, agregarCdoDvd, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo) {
+    constructor(x, numeroIteraciones, minutoDesde, desviacion ,cambioPlaca,  ampliacionMemoria, formateoDisco, agregarCdoDvd, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, tablaRungeKutta) {
 
         this.reloj = 0;
         this.x = x;
@@ -24,7 +24,8 @@ export class GestorSimulacion {
                 {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: Number(agregarCdoDvd.probabilidad)}]),
             tiempoTrabajoInicialFormateo,
             tiempoTrabajoFinalFormateo,
-            this
+            this,
+            tablaRungeKutta
         );
 
         this.contadorGlobalComputadora = 0
@@ -35,7 +36,7 @@ export class GestorSimulacion {
         this.eventoLlegadaComputadora = new EventoLlegadaComputadora(0, Math.random(), this.tecnico, this);
         this.eventoFinArreglo = new EventoFinArreglo(this.tecnico);
         this.eventoFinEtapa1 = new EventoFinEtapa1(this.tecnico);
-        this.eventoFinSimulacion = new EventoFinSimulacion(x, this);
+        this.eventoFinSimulacion = new EventoFinSimulacion(x);
 
         this.arrayEventoFinEtapa2 = [];
         this.computadoras = [];

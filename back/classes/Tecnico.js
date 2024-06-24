@@ -1,8 +1,9 @@
 import { TablaProbabilidad } from "./TablaProbabilidad.js";
+import { TablaRungeKutta } from "./TablaRungeKutta.js";
 
 export class Tecnico {
 
-    constructor(tablaTrabajos, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, contextoSimulacion) {
+    constructor(tablaTrabajos, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, contextoSimulacion, tablaRungeKutta) {
 
         this.estado = 'Libre';
 
@@ -26,6 +27,7 @@ export class Tecnico {
         this.trabajoRequerido = null;
 
         this.contextoSimulacion = contextoSimulacion;
+        this.tablaRungeKutta = tablaRungeKutta
 
     }
 
@@ -112,13 +114,10 @@ export class Tecnico {
             computadora.setTiempoFinEsperaFormateo(tiempoFinEsperaFormateo);
 
             
-            
             //En este metodo, rellenamos de los datos relacionados al evento de formateo. 
             //Para mantener consistencia, aqui es donde se van a mostrar el rnd utilizado y
             //el tiempo total.
             this.contextoSimulacion.actualizarEventoFormateo(rndTiempoTotalFormateo, tiempoTotalFormateo, tiempoFinEtapa1);
-
-
 
 
         }
