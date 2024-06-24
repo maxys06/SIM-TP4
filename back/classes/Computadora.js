@@ -10,6 +10,9 @@ export class Computadora {
         this.tiempoFinEspera = null;
         this.tiempoInicioArreglo = null;
 
+        this.tiempoRungeKutta = null;
+
+
     }
 
     /** 
@@ -33,6 +36,11 @@ export class Computadora {
     formateadoEnEspera() {
         if (this.estado != 'Siendo Formateada') throw new Error("TRANSICION INVALIDA. A EN ESPERA SOLO SE PUEDE IR DESDE SIENDO FORMATEADA");
         this.estado = 'Formateado en espera'
+    }
+
+    iniciarEtapa1(tiempoRungeKutta) {
+        this.estado = 'Siendo Arreglada';
+        this.tiempoRungeKutta = tiempoRungeKutta;
     }
 
 }

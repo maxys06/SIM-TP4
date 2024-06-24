@@ -47,13 +47,20 @@ console.log(tiempo);*/
     15);
 gestor.test();*/
 
-let tabla = new TablaRungeKutta(50000, 1000000, 0.8, 0.05)
+let tabla = new TablaRungeKutta(50000, 1000000, 0.8, 0.28)
 tabla.generarTablaRungeKutta();
-let mostrar = [];
+let gestor = new GestorSimulacion(
+    2000, 
+    50, 
+    0, 
+    10, 
+    {tiempo: 60, probabilidad: 0.25}, {tiempo: 80, probabilidad: 0.25}, {tiempo: 100, probabilidad: 0.25}, {tiempo: 120, probabilidad: 0.25}, 
+    tabla);
 
-let minutos = tabla.buscarMinutos(1000000);
+if(tabla.arrayFilas[tabla.arrayFilas.length - 1].t  > (100 - 10)/2) {
+        throw new Error("Error en el envio de parametros")
+}
+  
 
-
-mostrar.push(tabla.arrayFilas[tabla.arrayFilas.length - 1])
-console.log(JSON.stringify(mostrar));
-console.log(minutos);
+let vecEstados = gestor.iniciarSimulacion();
+console.log(JSON.stringify(vecEstados))

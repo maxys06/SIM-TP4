@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EventoFinArreglo } from "./EventoFinArreglo.js";
 import { EventoFinEtapa1 } from "./EventoFinEtapa1.js";
 import { EventoFinEtapa2 } from "./EventoFinEtapa2.js";
@@ -8,7 +9,7 @@ import { EventoFinSimulacion } from "./EventoFinSimulacion.js";
 
 export class GestorSimulacion {
 
-    constructor(x, numeroIteraciones, minutoDesde, desviacion ,cambioPlaca,  ampliacionMemoria, formateoDisco, agregarCdoDvd, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, tablaRungeKutta) {
+    constructor(x, numeroIteraciones, minutoDesde, desviacion ,cambioPlaca,  ampliacionMemoria, formateoDisco, agregarCdoDvd, tablaRungeKutta) {
 
         this.reloj = 0;
         this.x = x;
@@ -22,8 +23,7 @@ export class GestorSimulacion {
                 {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "Ampliacion Memoria"}, probabilidad: Number(ampliacionMemoria.probabilidad)},
                 {valor: {tiempo: formateoDisco.tiempo, trabajo: "Formateo Disco"}, probabilidad: Number(formateoDisco.probabilidad)},
                 {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: Number(agregarCdoDvd.probabilidad)}]),
-            tiempoTrabajoInicialFormateo,
-            tiempoTrabajoFinalFormateo,
+
             this,
             tablaRungeKutta
         );
@@ -72,9 +72,9 @@ export class GestorSimulacion {
             vectorEstadoVisible: vectorEstados
         }
 
-        console.log(JSON.stringify(vectorEstados))
+        /*console.log(JSON.stringify(vectorEstados))
         console.log('***************')
-        console.log(JSON.stringify(response.ultimaFilaVecEstado))
+        console.log(JSON.stringify(response.ultimaFilaVecEstado))*/
         return response
         
     };
@@ -87,6 +87,7 @@ export class GestorSimulacion {
     obtenerSiguienteEvento() {
         let siguienteEvento = this.eventoLlegadaComputadora;
         if (this.eventoFinArreglo.getTiempoOcurrencia() != null && this.eventoFinArreglo.getTiempoOcurrencia() < siguienteEvento.getTiempoOcurrencia() ) {
+            // @ts-ignore
             siguienteEvento = this.eventoFinArreglo;
         }
         if(this.eventoFinEtapa1.getTiempoOcurrencia() != null && this.eventoFinEtapa1.getTiempoOcurrencia() < siguienteEvento.getTiempoOcurrencia()) {
@@ -142,7 +143,13 @@ export class GestorSimulacion {
         linea.arrayEventoFinEtapa2 = this.arrayEventoFinEtapa2.map(e => {return {
             tiempo: e.getTiempoOcurrencia(),
             computadora: e.computadora.idComputadora
-        }})
+        }});
+
+        linea.datosRungeKutta = {
+            rnd: this.tecnico.rndRungeKutta,
+            sectores: this.tecnico.cantidadSectores,
+            tiempo: this.tecnico.tiempoN
+        }
 
         linea.trabajo =  {
             rnd: this.tecnico.rndTrabajo,
@@ -167,7 +174,7 @@ export class GestorSimulacion {
         
 
         linea.computadoras = this.computadoras.map(c => {return {
-            id: c.idComputadora, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoInicioArreglo: c.tiempoInicioArreglo}})
+            id: c.idComputadora, estado: c.estado, tiempoLlegada: c.tiempoLlegada, tiempoFinEspera: c.tiempoFinEspera, tiempoInicioArreglo: c.tiempoInicioArreglo, tiempoRungeKutta: c.tiempoRungeKutta}})
         
         return linea;
         

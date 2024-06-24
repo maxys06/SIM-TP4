@@ -1,0 +1,58 @@
+nuevo atributo en computadora:
+
+    tiempoRungeKutta: number? // Seria una columna mas en la minitable para computadoras. Puede ser nulo.
+
+nueva columna (minitable) para vector estado:
+    datosRungeKutta: {
+        rnd: number,
+        sectores: number,
+        tiempo: number,
+    }
+
+    esta columna iria despues de la columna de Trabajo a realizar.
+
+
+parametros de simulacion:
+
+    se eliminan los parametros:
+        tiempoTrabajoInicialFormateo,
+        tiempoTrabajoFinalFormateo
+
+    se agregan los parametros, todos obligatorios:
+        limiteInferiorSector: number
+        limiteSuperiorSector: number
+        constanteA: number
+        coeficienteB: number
+
+
+TABLA RUNGE KUTTA:
+
+    se puede acceder mediante la cte: tabla
+
+
+    comentarios: 
+        esta el endpoint preparado, pero sinceramente pienso que terminaria siendo mejor hacer la tabla en el front con react, mas que nada
+        porque las iteraciones no superan a las 1000 (y ya vimos que se podian mostrar tranquilamente esas).
+
+        En ese caso, estraia piola un botoncito que llame al endpoint y en una ventana nueva que muestre la tabla, y ademas podes reciclar los estilos
+        que ya estan hechos
+
+        pero lo dejo a tu criterio xd
+
+    atributos tabla:
+        la descripcion de cada atributo deberia ser el HEADER de la columna (menos la de usado)
+        arrayFilas: [{
+            t: Minutos,
+            cActual: Sectores C,
+            t_h_2: t + h/2,
+            tSiguiente: t + h,
+            k1: f(t),
+            c_k1: c + h/2*k1,
+            k2: f(t+h/2, c+h/2*k1),
+            c_k2: c + h/2*k2,
+            k3: f(t+h/2, c+h/2*k2),
+            c_k3: c + h/2*k3,
+            k4: f(t+h, c+h*k2),
+            cSiguiente: c + h/6*(k1 + 2*k2 + 2*k3 + k4),
+            usado: indica si la fila fue usada. SImplemente es un campo visual. La idea seria que si esta en true, se muestre coloreada.
+        }]

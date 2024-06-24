@@ -7,7 +7,7 @@ import { TablaRungeKutta } from './classes/TablaRungeKutta.js';
 
 const port = 5174;
 const app = express();
-const tabla = null;
+let tabla = null;
 
 
 
@@ -34,8 +34,6 @@ app.post('/api/simulacion', async (req, res) => {
       req.body.ampliacionMemoria,
       req.body.formateoDisco,
       req.body.agregarCdoDvd,
-      req.body.tiempoTrabajoInicialFormateo,
-      req.body.tiempoTrabajoFinalFormateo,
       req.body.limiteInferiorSector,
       req.body.limiteSuperiorSector,
       req.body.constanteA,
@@ -65,8 +63,6 @@ app.post('/api/simulacion', async (req, res) => {
       req.body.ampliacionMemoria,
       req.body.formateoDisco,
       req.body.agregarCdoDvd,
-      req.body.tiempoTrabajoInicialFormateo,
-      req.body.tiempoTrabajoFinalFormateo,
       tabla
     )
     
@@ -77,9 +73,15 @@ app.post('/api/simulacion', async (req, res) => {
     
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Error de Servidor', message: error });
+    res.status(400).json({ error: 'Error de Servidor', message: error });
   }
 });
+
+app.post('/api/generar-xls', (req, res) => {
+
+
+
+})
 
 
 

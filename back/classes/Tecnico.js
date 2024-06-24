@@ -3,7 +3,7 @@ import { TablaRungeKutta } from "./TablaRungeKutta.js";
 
 export class Tecnico {
 
-    constructor(tablaTrabajos, tiempoTrabajoInicialFormateo, tiempoTrabajoFinalFormateo, contextoSimulacion, tablaRungeKutta) {
+    constructor(tablaTrabajos, contextoSimulacion, tablaRungeKutta) {
 
         this.estado = 'Libre';
 
@@ -20,14 +20,17 @@ export class Tecnico {
         this.proporcionOcupacionTecnico = 0; //LO GUARDAMOS COMO FRACCION (0.56) y en el front lo pasamos a porcentaje.
 
         this.tablaTrabajos = tablaTrabajos;
-        this.tiempoTrabajoInicialFormateo = tiempoTrabajoInicialFormateo;
-        this.tiempoTrabajoFinalFormateo = tiempoTrabajoFinalFormateo; 
         
         this.rndTrabajo = null;
         this.trabajoRequerido = null;
 
         this.contextoSimulacion = contextoSimulacion;
-        this.tablaRungeKutta = tablaRungeKutta
+        this.tablaRungeKutta = tablaRungeKutta;
+
+        // Atributos para poder mostrar el RND generado y la cantidad de sectores.
+        this.rndRungeKutta = null;
+        this.cantidadSectores = null;
+        this.tiempoN = null;
 
     }
 
@@ -59,7 +62,7 @@ export class Tecnico {
         //Si este atributo fue seteado, significa que esta computadora fue formateada, y que ahora se encuentra en la ultima etapa.
         //El tiempo de ocupacion va a ser el tiempo que se demore en temrinar la ultima etapa.
         if(this.computadoraActual.tiempoFinEspera) {
-            this.tiempoOcupacionTecnico = this.tiempoTrabajoFinalFormateo;
+            this.tiempoOcupacionTecnico = this.computadoraActual.tiempoRungeKutta;
         }
         else {
             this.tiempoOcupacionTecnico = minutoActual - this.computadoraActual.tiempoInicioArreglo;
@@ -81,7 +84,7 @@ export class Tecnico {
         //Instanciamos un nuevo evento en la simulacion, el cual vamos a poder usar para actualizar el estado de la computadora.
         this.contextoSimulacion.agregarEventoFinEsperaFormateo(this.computadoraActual);
         
-        this.tiempoOcupacionTecnico = this.tiempoTrabajoInicialFormateo;
+        this.tiempoOcupacionTecnico = this.computadoraActual.tiempoRungeKutta;
 
         this.acumTiempoOcupacionTecnico += this.tiempoOcupacionTecnico;
         this.proporcionOcupacionTecnico = this.acumTiempoOcupacionTecnico / minutoActual;
@@ -106,11 +109,22 @@ export class Tecnico {
             let rndTiempoTotalFormateo = Math.random();
             let tiempoTotalFormateo = this.trabajoRequerido.obtenerTiempo(rndTiempoTotalFormateo);
 
-            let tiempoFinEtapa1 = minutoActual + this.tiempoTrabajoInicialFormateo; 
-            computadora.siendoArreglada();
+            let rndSectores = Math.random();
+            let cantidadSectores = this.tablaRungeKutta.calcularCantidadSectores(rndSectores);
+            let tiempoRequerido = this.tablaRungeKutta.buscarMinutos(cantidadSectores);
+
+            // Asignamos los atributos al tecnico, para que puedan ser mostrados en el vector de estados
+            this.rndRungeKutta = rndSectores;
+            this.cantidadSectores = cantidadSectores;
+            this.tiempoN = tiempoRequerido;
+
+            let tiempoFinEtapa1 = minutoActual + tiempoRequerido
+
+            //Asignamos el tiempo requerido en la variable
+            computadora.iniciarEtapa1(tiempoRequerido);
                 
             // El minuto en el cual la computadora va a dejar de estar en espera por el formateo.
-            let tiempoFinEsperaFormateo = minutoActual + tiempoTotalFormateo - this.tiempoTrabajoFinalFormateo;
+            let tiempoFinEsperaFormateo = minutoActual + tiempoTotalFormateo - tiempoRequerido;
             computadora.setTiempoFinEsperaFormateo(tiempoFinEsperaFormateo);
 
             
@@ -141,7 +155,7 @@ export class Tecnico {
         this.computadoraActual.siendoArreglada();
         //mandamos el minuto actual, el tiempo que tarda, y el nulo hace referencia a un RND,
         // pero en este caso, no se utiliza ningun numero aleatorio.
-        this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, null, this.tiempoTrabajoFinalFormateo)
+        this.contextoSimulacion.actualizarEventoFinArreglo(minutoActual, null, this.computadoraActual.tiempoRungeKutta)
 
     }
 
@@ -168,7 +182,12 @@ export class Tecnico {
     limpiar() {
         this.rndTrabajo = null;
         this.trabajoRequerido = null;
+        // @ts-ignore
         this.tiempoOcupacionTecnico = null;
+        this.rndRungeKutta = null;
+        this.cantidadSectores = null;
+        this.tiempoN = null;
+
     }
 
     setTrabajandoEn() {
