@@ -19,10 +19,10 @@ export class GestorSimulacion {
         // Esta tabla de probabilidad, tiene como filas los trabajos. Cada trabajo tiene un metodo para calcular su tiempo requerido.
         this.tecnico = new Tecnico(
             new TablaProbabilidad(desviacion, [
-                {valor: {tiempo: cambioPlaca.tiempo, trabajo: "Cambio de Placa"}, probabilidad: Number(cambioPlaca.probabilidad)},
-                {valor: {tiempo: ampliacionMemoria.tiempo, trabajo: "Ampliacion Memoria"}, probabilidad: Number(ampliacionMemoria.probabilidad)},
-                {valor: {tiempo: formateoDisco.tiempo, trabajo: "Formateo Disco"}, probabilidad: Number(formateoDisco.probabilidad)},
-                {valor: {tiempo: agregarCdoDvd.tiempo, trabajo: "Agregar CD o DVD"}, probabilidad: Number(agregarCdoDvd.probabilidad)}]),
+                {valor: {tiempo: Number(cambioPlaca.tiempo), trabajo: "Cambio de Placa"}, probabilidad: Number(cambioPlaca.probabilidad)},
+                {valor: {tiempo: Number(ampliacionMemoria.tiempo), trabajo: "Ampliacion Memoria"}, probabilidad: Number(ampliacionMemoria.probabilidad)},
+                {valor: {tiempo: Number(formateoDisco.tiempo), trabajo: "Formateo Disco"}, probabilidad: Number(formateoDisco.probabilidad)},
+                {valor: {tiempo: Number(agregarCdoDvd.tiempo), trabajo: "Agregar CD o DVD"}, probabilidad: Number(agregarCdoDvd.probabilidad)}]),
 
             this,
             tablaRungeKutta

@@ -14,6 +14,7 @@ export default function Tabla({ datos, sticky=true }) {
                     <th className={style.stickyTopHeader}>Fin Etapa 1</th>
                     <th className={style.stickyTopHeader}>Fin Etapa 2</th>
                     <th className={style.stickyTopHeader}>Trabajo</th>
+                    <th className={style.stickyTopHeader}>Datos Runge Kutta</th>
                     <th className={style.stickyTopHeader}>Técnico</th>
                     <th className={style.stickyTopHeader}>Contador de Computadoras Arregladas</th>
                     <th className={style.stickyTopHeader}>Tiempo Permanencia PC</th>
@@ -112,6 +113,26 @@ export default function Tabla({ datos, sticky=true }) {
                             </table>
                         </td>
                         <td>
+                        <table className={style.Minitable}>
+                                <thead>
+                                    <tr>
+                                        <th>RND</th>
+                                        <th>Sectores</th>
+                                        <th>Tiempo</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>{item.datosRungeKutta.rnd ? item.datosRungeKutta.rnd.toFixed(2) : '-'}</td>
+
+                                    <td>{item.datosRungeKutta.sectores ? item.datosRungeKutta.sectores : '-'}</td>
+
+                                    <td>{item.datosRungeKutta.tiempo ? item.datosRungeKutta.tiempo.toFixed(2) : '-'}</td>
+
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td>
                             <table className={style.Minitable}>
                                 <thead>
                                     <tr>
@@ -150,6 +171,7 @@ export default function Tabla({ datos, sticky=true }) {
                                     <th>Tiempo Llegada</th>
                                     <th>Tiempo Fin Espera</th>
                                     <th>Tiempo Inicio Arreglado</th>
+                                    <th>Tiempo Rugen Kutta</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,6 +184,8 @@ export default function Tabla({ datos, sticky=true }) {
                                                 <td>{pc.tiempoLlegada ? pc.tiempoLlegada.toFixed(2) : null}</td>
                                                 <td>{pc.tiempoFinEspera ? pc.tiempoFinEspera.toFixed(2) : null}</td>
                                                 <td>{pc.tiempoInicioArreglo ? pc.tiempoInicioArreglo.toFixed(2) : null}</td>
+                                                <td>{pc.tiempoRungeKutta ? pc.tiempoRungeKutta.toFixed(2) : null}</td>
+
                                             </tr>
                                         ))}
                                         <tr>

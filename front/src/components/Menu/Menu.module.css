@@ -120,3 +120,31 @@
 .fieldsetProbabilidades .column > div {
   margin-bottom: 1ch;
 }
+
+/* Menu.module.css */
+.errorMessage {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 4px solid #f5c6cb;
+  border-radius: 8px; /* Aumenté el radio del borde */
+  padding: 20px; /* Aumenté el padding */
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.5em; /* Aumenté el tamaño del texto */
+}
+
+.errorMessage::before {
+  content: '';
+  display: inline-block;
+  width: 48px; /* Aumenté el ancho del icono */
+  height: 48px; /* Aumenté la altura del icono */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23721c24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v2m0 4h.01M21.97 12A10 10 0 1 1 12 2.03 10 10 0 0 1 21.97 12z"/></svg>');
+  background-size: contain;
+  margin-right: 15px; /* Ajusté el margen derecho */
+}
+
+.errorMessageText {
+  font-weight: bold;
+  font-size: 1.5em; /* Aumenté el tamaño del texto */
+}
