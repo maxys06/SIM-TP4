@@ -94,16 +94,26 @@ app.post('/api/generar-xls', (req, res) => {
     { header: 'Sectores C', key: 'cActual', width: 15 },
     { header: 't + h/2', key: 't_h_2', width: 10 },
     { header: 't + h', key: 'tSiguiente', width: 10 },
-    { header: 'f(t)', key: 'k1', width: 10 },
+    { header: 'f(t)', key: 'k1', width: 10},
     { header: 'c + h/2*k1', key: 'c_k1', width: 15 },
-    { header: 'f(t+h/2, c+h/2*k1)', key: 'k2', width: 20 },
-    { header: 'c + h/2*k2', key: 'c_k2', width: 15 },
-    { header: 'f(t+h/2, c+h/2*k2)', key: 'k3', width: 20 },
-    { header: 'c + h/2*k3', key: 'c_k3', width: 15 },
-    { header: 'f(t+h, c+h*k2)', key: 'k4', width: 15 },
+    { header: 'f(t+h/2, c+h/2*k1)', key: 'k2', width: 20},
+    { header: 'c + h/2*k2', key: 'c_k2', width: 15},
+    { header: 'f(t+h/2, c+h/2*k2)', key: 'k3', width: 20},
+    { header: 'c + h/2*k3', key: 'c_k3', width: 15},
+    { header: 'f(t+h, c+h*k2)', key: 'k4', width: 15},
     { header: 'c + h/6*(k1 + 2*k2 + 2*k3 + k4)', key: 'cSiguiente', width: 30 },
-    { header: 'Usado', key: 'usado', width: 10 }
+    { header: 'Usado', key: 'usado', width: 10}
   ];
+
+  // Añadir las filas
+  // Establecer color de fondo para las cabeceras
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFFF00' } // Color de fondo amarillo
+    };
+  });
 
   // Añadir las filas
   arrayFilas.forEach(fila => {

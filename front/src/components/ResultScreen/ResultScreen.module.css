@@ -17,7 +17,7 @@
 }
 
 .resultHeader {
-  text-align: start;
+  text-align: center;
   font-size: 1.6rem;
   padding-bottom: 8px;
   color: gray;
@@ -46,7 +46,7 @@
 
 .Button {
   margin: 1ch;
-  padding: 10px 10px; /* Ajustar el padding horizontal para que el botón sea menos ancho */
+  padding: 10px 20px; /* Ajustar el padding horizontal para que coincida con el botón de arriba */
   background-color: #4366b9; /* Color de fondo */
   color: white; /* Color del texto */
   border: none; /* Sin borde */

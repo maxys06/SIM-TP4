@@ -21,11 +21,12 @@ export function ResultScreen({ data }) {
 
   return (
     <section className={styles.resultScreen}>
-      <button className={styles.Button} onClick={handleButtonClick}>Obtener Tabla Rugen Kutta</button>
       
-      <header>Resultados de la Simulación</header>
+      <header className={styles.resultHeader}>Resultados de la Simulación</header>
         
       <Tabla datos={data.ultimaFilaVecEstado} sticky={false} />
+      <button className={styles.Button} onClick={handleButtonClick}>Obtener Tabla Rugen Kutta</button>
+
 
       <Tabla datos={data.vectorEstadoVisible} />
     </section>
